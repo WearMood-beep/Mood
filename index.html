@@ -24,12 +24,17 @@
   .micro{font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:700}
   .num{color:var(--blue)}
 
-  /* ---------- intro loader ---------- */
-  #intro{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;transition:transform .6s cubic-bezier(.76,0,.24,1) .55s}
-  #intro .kanji{font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:clamp(64px,12vw,120px);line-height:1;color:var(--blue-2);animation:introPulse 1.1s ease both}
+  /* ---------- intro loader (rolodex of "mood" in many languages) ---------- */
+  #intro{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;transition:transform .6s cubic-bezier(.76,0,.24,1)}
+  #intro .roll{height:1.25em;overflow:hidden;perspective:700px;text-align:center;
+    font-family:'Space Grotesk','Noto Sans JP','Apple SD Gothic Neo','Hiragino Kaku Gothic ProN','Kohinoor Devanagari','Geeza Pro',sans-serif;
+    font-weight:700;font-size:clamp(56px,11vw,110px);line-height:1.25;color:var(--blue-2)}
+  #intro .roll span{display:block;transition:transform .12s ease,opacity .12s ease;text-shadow:0 0 70px rgba(59,109,255,.5);animation:introPulse .5s ease both}
+  #intro .roll span.out{transform:translateY(-70%) rotateX(65deg);opacity:0}
+  #intro .roll span.pre{transition:none;transform:translateY(70%) rotateX(-65deg);opacity:0}
   #intro .word{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:.4em;text-transform:uppercase;color:var(--ink);opacity:0;animation:introWord .5s ease .25s forwards}
   #intro.done{transform:translateY(-100%)}
-  @keyframes introPulse{0%{opacity:0;transform:scale(.92)}40%{opacity:1;transform:scale(1)}100%{opacity:1}}
+  @keyframes introPulse{0%{opacity:0;transform:scale(.94)}100%{opacity:1;transform:scale(1)}}
   @keyframes introWord{to{opacity:1}}
 
   /* ---------- scroll progress ---------- */
@@ -41,7 +46,9 @@
   nav{display:flex;align-items:center;justify-content:space-between;height:74px;gap:18px}
   .brand{display:inline-flex;align-items:baseline;gap:12px;text-decoration:none}
   .brand .word{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:25px;letter-spacing:-.01em;line-height:1;text-transform:uppercase}
-  .brand .kj{font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:15px;color:var(--blue-2)}
+  .brand .kj{font-family:'Noto Sans JP','Apple SD Gothic Neo','Kohinoor Devanagari','Geeza Pro',sans-serif;font-weight:700;font-size:15px;color:var(--blue-2);display:inline-block;transition:transform .16s ease,opacity .16s ease}
+  .brand .kj.out{transform:translateY(-.5em);opacity:0}
+  .brand .kj.pre{transition:none;transform:translateY(.5em);opacity:0}
   .navlinks{display:flex;align-items:center;gap:34px}
   .navlinks a:not(.joinbtn){font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);font-weight:600;text-decoration:none;position:relative;transition:color .2s}
   .navlinks a:not(.joinbtn)::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:right;transition:transform .3s}
@@ -198,7 +205,7 @@
 <body>
 
 <div id="intro" aria-hidden="true">
-  <div class="kanji">気分</div>
+  <div class="roll"><span id="rollWord">mood</span></div>
   <div class="word">mood.</div>
 </div>
 <div id="prog"></div>
@@ -209,7 +216,7 @@
     <nav>
       <a href="#top" class="brand">
         <span class="word">mood<span class="num">.</span></span>
-        <span class="kj">気分</span>
+        <span class="kj" id="navKj">気分</span>
       </a>
       <div class="navlinks">
         <a href="#piece">The Piece</a>
@@ -445,11 +452,64 @@
 (function(){
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ---------- intro ----------
+  // ---------- intro: "mood" rolodex through languages, landing on 気分 ----------
   var intro = document.getElementById('intro');
-  function killIntro(){ if(intro){ intro.classList.add('done'); setTimeout(function(){ if(intro){ intro.remove(); intro=null; } }, 1300); } }
-  if(reduceMotion){ killIntro(); } else { setTimeout(killIntro, 650); }
+  function killIntro(){ if(intro){ intro.classList.add('done'); setTimeout(function(){ if(intro){ intro.remove(); intro=null; } }, 900); } }
   document.addEventListener('click', killIntro, {once:true});
+
+  var seenIntro = false;
+  try { seenIntro = sessionStorage.getItem('mood_intro') === '1'; sessionStorage.setItem('mood_intro','1'); } catch(_){}
+
+  var rollEl = document.getElementById('rollWord');
+  // mood in: English → Korean → Chinese → Spanish → Hindi → French → Arabic → Portuguese → Japanese (the logo)
+  // note: 心情 (xīnqíng) is the everyday CHINESE word for mood; 気分 is JAPANESE (気 is a Japan-only glyph)
+  var SEQ = ['mood','기분','心情','ánimo','मूड','humeur','مزاج','humor','気分'];
+
+  if (reduceMotion || seenIntro || !rollEl) {
+    // quick version: straight to the logo, no rotation
+    if (rollEl) rollEl.textContent = '気分';
+    setTimeout(killIntro, reduceMotion ? 0 : 500);
+  } else {
+    var wi = 0;
+    var step = function(){
+      if (!intro) return;                    // user skipped
+      wi++;
+      if (wi >= SEQ.length) { setTimeout(killIntro, 620); return; }  // hold on 気分, then reveal
+      rollEl.classList.add('out');           // flip current word out (up)
+      setTimeout(function(){
+        if (!intro) return;
+        rollEl.textContent = SEQ[wi];
+        rollEl.classList.remove('out');
+        rollEl.classList.add('pre');         // park next word below
+        void rollEl.offsetWidth;             // force reflow so the transition runs
+        rollEl.classList.remove('pre');      // flip it in
+        var last = (wi === SEQ.length - 1);
+        setTimeout(step, last ? 10 : 150);
+      }, 120);
+    };
+    setTimeout(step, 420);                   // let "mood" register first
+  }
+
+  // ---------- nav logo: slow language cycle (dwells on 気分, the home base) ----------
+  var navKj = document.getElementById('navKj');
+  if (navKj && !reduceMotion) {
+    var NAVSEQ = ['気分','기분','心情','ánimo','मूड','humeur','مزاج','humor']; // no 'mood' — the wordmark already says it
+    var ni = 0;
+    var navStep = function(){
+      ni = (ni + 1) % NAVSEQ.length;
+      navKj.classList.add('out');
+      setTimeout(function(){
+        navKj.textContent = NAVSEQ[ni];
+        navKj.classList.remove('out');
+        navKj.classList.add('pre');
+        void navKj.offsetWidth;
+        navKj.classList.remove('pre');
+      }, 160);
+      // dwell longest on 気分 (position 0), shorter on the rest
+      setTimeout(navStep, ni === 0 ? 5200 : 2400);
+    };
+    setTimeout(navStep, 5200);
+  }
 
   // ---------- scroll progress + header ----------
   var prog = document.getElementById('prog'), hdr = document.getElementById('hdr');
