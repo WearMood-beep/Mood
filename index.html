@@ -260,6 +260,16 @@ footer{border-top:1px solid var(--line);overflow:hidden}
   letter-spacing:.08em;
 }
 
+
+/* first drop rotating image */
+.photo-frame img.drop-rotator{
+  transition:opacity .28s ease, transform .45s cubic-bezier(.22,1,.36,1);
+}
+.photo-frame img.drop-rotator.out{
+  opacity:0;
+  transform:scale(.985);
+}
+
 </style>
 </head>
 <body>
@@ -440,7 +450,7 @@ footer{border-top:1px solid var(--line);overflow:hidden}
         <p style="color:var(--mut);margin:22px 0 0;max-width:420px;font-size:15px">Our debut pieces — designed by us, photographed by us, worn by us first. The shop is open.</p>
         <div class="live"><span class="dot"></span><span class="micro" style="letter-spacing:.2em">Live now — shop open</span></div>
       </div>
-      <div class="photo-frame"><img src="assets/og-back.png" alt="The OG hoodie back"></div>
+      <div class="photo-frame"><img id="dropRotator" class="drop-rotator" src="assets/og-front.png" alt="Mood hoodie rotating product image"></div>
     </div>
   </div>
 </section>
@@ -667,6 +677,43 @@ footer{border-top:1px solid var(--line);overflow:hidden}
   }
   hook('heroForm','heroEmail','heroNote',"You're on the list ✓");
   hook('ctaForm','ctaEmail','ctaNote',"You're on the list ✓ — see you at the drop.");
+
+  // ---------- first drop rotating product image ----------
+  var dropRotator = document.getElementById('dropRotator');
+  if(dropRotator && !reduceMotion){
+    var DROP_IMAGES = [
+      'assets/og-front.png',
+      'assets/og-back.png',
+      'assets/og-grey-front.png',
+      'assets/og-grey-back.png',
+      'assets/og-coffee-front.png',
+      'assets/og-coffee-back.png',
+      'assets/og-maroon-front.png',
+      'assets/og-maroon-back.png',
+      'assets/traditional-front.png',
+      'assets/traditional-back.png',
+      'assets/traditional-grey-front.png',
+      'assets/traditional-grey-back.png',
+      'assets/traditional-coffee-front.png',
+      'assets/traditional-coffee-back.png',
+      'assets/traditional-maroon-front.png',
+      'assets/traditional-maroon-back.png',
+      'assets/snooze-front.png',
+      'assets/snooze-back.png',
+      'assets/lockedin-front.png',
+      'assets/lockedin-back.png'
+    ];
+    var di = 0;
+    setInterval(function(){
+      di = (di + 1) % DROP_IMAGES.length;
+      dropRotator.classList.add('out');
+      setTimeout(function(){
+        dropRotator.src = DROP_IMAGES[di];
+        dropRotator.classList.remove('out');
+      }, 280);
+    }, 1800);
+  }
+
   document.getElementById('yr').textContent=new Date().getFullYear();
 })();
 </script>
