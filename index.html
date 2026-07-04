@@ -30,16 +30,6 @@ button{font-family:inherit}
 .num{color:var(--blue)}
 #prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--blue);z-index:130}
 
-/* front-graphic picker */
-.frontpick{display:flex;align-items:center;gap:10px;margin-top:14px}
-.fp-label{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);font-weight:700}
-.fp-opts{display:flex;border:1px solid var(--line)}
-.fp-btn{background:transparent;border:none;color:var(--mut);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:8px 14px;cursor:pointer;transition:background .2s,color .2s}
-.fp-btn+.fp-btn{border-left:1px solid var(--line)}
-.fp-btn.on{background:var(--blue);color:var(--ink)}
-.fp-btn:not(.on):hover{color:var(--ink)}
-.fp-note{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-top:8px;opacity:.75}
-
 /* intro */
 #intro{position:fixed;inset:0;z-index:220;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;transition:transform .65s cubic-bezier(.76,0,.24,1)}
 #intro.done{transform:translateY(-105%)}
@@ -211,70 +201,64 @@ footer{border-top:1px solid var(--line);overflow:hidden}
 @media(max-width:720px){.cards{gap:34px}.ph{min-height:360px}.ph img.main{padding:22px}.sect{padding:90px 22px 76px}.wrap{padding:0 22px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}[data-reveal]{opacity:1;transform:none;filter:none;clip-path:none}}
 
-/* premium color selector */
-.color-label{
-  font-size:11px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:var(--dim);
-  font-weight:800;
-  margin-top:15px;
-}
-.swatches.colorways{gap:12px;margin-top:10px}
-.sw.color-swatch{
-  position:relative;
-  width:25px;
-  height:25px;
-  border:1px solid rgba(255,255,255,.28);
-  box-shadow:none;
-  cursor:pointer;
-  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-}
-.sw.color-swatch:hover{transform:scale(1.16)}
-.sw.color-swatch.active{
-  border-color:var(--blue);
-  box-shadow:0 0 0 2px var(--blue),0 0 18px rgba(59,109,255,.32);
-}
-.product-img-wrap{position:relative;width:100%}
-.ph img.main.color-changing{animation:colorFade .32s ease}
-@keyframes colorFade{
-  0%{opacity:.35;transform:scale(.985)}
-  100%{opacity:1;transform:scale(1)}
-}
-.collection-note{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  color:var(--dim);
-  font-size:11px;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  font-weight:800;
-  margin-top:12px;
-}
-.collection-note::before{
-  content:"";
-  width:7px;
-  height:7px;
-  background:var(--blue);
-  border-radius:999px;
-}
-@media(min-width:900px){
-  #collection .cards{
-    grid-template-columns:repeat(2,minmax(320px,1fr));
-  }
-}
-
-
-/* colorway selector */
-.color-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:800;margin-top:15px}
-.swatches.colorways{gap:12px;margin-top:10px}
-.sw.color-swatch{width:25px;height:25px;border-radius:50%;border:1px solid rgba(255,255,255,.32);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
-.sw.color-swatch:hover{transform:scale(1.16)}
-.sw.color-swatch.active{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue),0 0 18px rgba(59,109,255,.32)}
-.ph img.main.color-changing{animation:colorFade .32s ease}
+/* SIMPLE COLORWAYS - visible, hard-coded */
+.color-picker{margin-top:16px}
+.color-title{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:800;margin-bottom:10px}
+.color-buttons{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.color-button{display:flex;align-items:center;gap:7px;background:transparent;border:1px solid rgba(255,255,255,.16);color:var(--mut);padding:8px 10px;cursor:pointer;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;transition:.2s}
+.color-button:hover,.color-button.active{color:var(--ink);border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
+.color-dot{width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,.28)}
+.color-button[data-color="Black"] .color-dot{background:#050505}
+.color-button[data-color="Grey"] .color-dot{background:#cfd0d2}
+.color-button[data-color="Coffee"] .color-dot{background:#45413b}
+.color-button[data-color="Maroon"] .color-dot{background:#5a263e}
+.ph img.main.color-changing{animation:colorFade .28s ease}
 @keyframes colorFade{0%{opacity:.35;transform:scale(.985)}100%{opacity:1;transform:scale(1)}}
 @media(min-width:900px){#collection .cards{grid-template-columns:repeat(2,minmax(320px,1fr))}}
+
+
+/* logo customization dropdown */
+.logo-choice{
+  margin-top:16px;
+  border-top:1px solid rgba(255,255,255,.12);
+  padding-top:14px;
+}
+.logo-choice label{
+  display:block;
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--dim);
+  font-weight:800;
+  margin-bottom:9px;
+}
+.logo-select{
+  width:100%;
+  background:transparent;
+  color:var(--ink);
+  border:1px solid rgba(255,255,255,.18);
+  padding:12px 12px;
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:800;
+  outline:none;
+  cursor:pointer;
+}
+.logo-select:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 1px var(--blue);
+}
+.logo-select option{
+  background:#0c0c0c;
+  color:#f2efe8;
+}
+.logo-note{
+  color:var(--dim);
+  font-size:11px;
+  margin-top:8px;
+  letter-spacing:.08em;
+}
 
 </style>
 </head>
@@ -332,8 +316,9 @@ footer{border-top:1px solid var(--line);overflow:hidden}
     <div class="duo">
       <span class="chip micro">Fig.02 — Front & Back</span>
       <div class="duo-grid">
-        <img src="assets/og-black-front.png" alt="The OG hoodie front">
-        <img src="assets/og-black-back.png" alt="The OG hoodie back">
+        <h2 style="text-align:center;font-size:2rem;letter-spacing:.12em;margin:0 0 18px;font-weight:900;text-transform:uppercase;">The OG</h2>
+<img src="og-front.png" alt="The OG hoodie front">
+        <img src="og-back.png" alt="The OG hoodie back">
       </div>
     </div>
     <div class="specs">
@@ -345,101 +330,93 @@ footer{border-top:1px solid var(--line);overflow:hidden}
   </div>
 </section>
 
+
 <section id="collection" style="border-top:1px solid var(--line)">
   <div class="wrap sect" data-reveal>
     <div class="shead">
       <div><span class="micro num">003 — Collection</span><h2><span class="clip">The<br>Collection</span></h2></div>
       <p>Choose your mood, then choose your color. OG and Traditional come in Black, Grey, Coffee, and Maroon.</p>
     </div>
-    <span class="collection-note">Hover the rotate key to spin · choose Black, Grey, Coffee, or Maroon</span>
     <div class="cards">
 
-      <article class="card color-product" data-product="og" data-current-color="Black">
+      <article class="card product-card" data-product="OG">
         <div class="ph">
           <span class="figchip">Fig.04</span><span class="stock">In stock</span>
-          <img class="main" data-flip src="assets/og-black-front.png" data-front="assets/og-black-front.png" data-back="assets/og-black-back.png" alt="The OG hoodie">
+          <img class="main" data-flip src="og-black-front.png" data-front="og-black-front.png" data-back="og-black-back.png" alt="The OG hoodie">
           <button class="rotate-key" type="button" aria-label="Spin The OG hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button>
         </div>
         <div class="prow"><div><div class="pname">The OG</div><div class="psub">Distressed panel · fang / mood</div></div><div class="price">$75.00</div></div>
-        <div class="color-label">Color: <span data-color-name>Black</span></div>
-        <div class="swatches colorways">
-          <span class="sw color-swatch active" role="button" tabindex="0" title="Black" data-color="Black" data-front="assets/og-black-front.png" data-back="assets/og-black-back.png" style="background:#050505"></span>
-          <span class="sw color-swatch" role="button" tabindex="0" title="Grey" data-color="Grey" data-front="assets/og-grey-front.png" data-back="assets/og-grey-back.png" style="background:#cfd0d2"></span>
-          <span class="sw color-swatch" role="button" tabindex="0" title="Coffee" data-color="Coffee" data-front="assets/og-coffee-front.png" data-back="assets/og-coffee-back.png" style="background:#45413b"></span>
-          <span class="sw color-swatch" role="button" tabindex="0" title="Maroon" data-color="Maroon" data-front="assets/og-maroon-front.png" data-back="assets/og-maroon-back.png" style="background:#5a263e"></span>
-          <span class="swlabel">Black · Grey · Coffee · Maroon</span>
-        </div>
-        <div class="frontpick" data-fp>
-          <span class="fp-label">Front</span>
-          <div class="fp-opts">
-            <button type="button" class="fp-btn on" data-fp-val="fang">Fang</button>
-            <button type="button" class="fp-btn" data-fp-val="mood">mood.</button>
+        <div class="color-picker">
+          <div class="color-title">Color: <span class="selected-color">Black</span></div>
+          <div class="color-buttons">
+            <button class="color-button active" type="button" data-color="Black" data-front="og-black-front.png" data-back="og-black-back.png"><span class="color-dot"></span>Black</button>
+            <button class="color-button" type="button" data-color="Grey" data-front="og-grey-front.png" data-back="og-grey-back.png"><span class="color-dot"></span>Grey</button>
+            <button class="color-button" type="button" data-color="Coffee" data-front="og-coffee-front.png" data-back="og-coffee-back.png"><span class="color-dot"></span>Coffee</button>
+            <button class="color-button" type="button" data-color="Maroon" data-front="og-maroon-front.png" data-back="og-maroon-back.png"><span class="color-dot"></span>Maroon</button>
           </div>
         </div>
-        <p class="fp-note" data-fp-note>photos show the fang front · your pick goes on the cart item</p>
         <details><summary>Description<span>+</span></summary><p>The OG sweater is the first design we made, and also the simplest. Choose the color that matches your mood.</p></details>
-        <button class="buy add-cart" type="button" data-name="The OG" data-price="75" data-img="assets/og-black-front.png" data-color="Black"><span>Add to Cart</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg></button>
+        <button class="buy add-cart" type="button" data-name="The OG" data-price="75" data-img="og-black-front.png" data-color="Black"><span>Add to Cart</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg></button>
       </article>
 
-      <article class="card color-product" data-product="traditional" data-current-color="Black">
+      <article class="card product-card" data-product="Traditional">
         <div class="ph">
           <span class="figchip">Fig.05</span><span class="stock">New</span>
-          <img class="main" data-flip src="assets/traditional-black-front.png" data-front="assets/traditional-black-front.png" data-back="assets/traditional-black-back.png" alt="Traditional Hoodie">
+          <img class="main" data-flip src="traditional-black-front.png" data-front="traditional-black-front.png" data-back="traditional-black-back.png" alt="Traditional Hoodie">
           <button class="rotate-key" type="button" aria-label="Spin Traditional hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button>
         </div>
         <div class="prow"><div><div class="pname">Traditional Hoodie</div><div class="psub">Washed fleece · mood mark</div></div><div class="price">$75.00</div></div>
-        <div class="color-label">Color: <span data-color-name>Black</span></div>
-        <div class="swatches colorways">
-          <span class="sw color-swatch active" role="button" tabindex="0" title="Black" data-color="Black" data-front="assets/traditional-black-front.png" data-back="assets/traditional-black-back.png" style="background:#050505"></span>
-          <span class="sw color-swatch" role="button" tabindex="0" title="Grey" data-color="Grey" data-front="assets/traditional-grey-front.png" data-back="assets/traditional-grey-back.png" style="background:#cfd0d2"></span>
-          <span class="sw color-swatch" role="button" tabindex="0" title="Coffee" data-color="Coffee" data-front="assets/traditional-coffee-front.png" data-back="assets/traditional-coffee-back.png" style="background:#45413b"></span>
-          <span class="sw color-swatch" role="button" tabindex="0" title="Maroon" data-color="Maroon" data-front="assets/traditional-maroon-front.png" data-back="assets/traditional-maroon-back.png" style="background:#5a263e"></span>
-          <span class="swlabel">Black · Grey · Coffee · Maroon</span>
+        <div class="color-picker">
+          <div class="color-title">Color: <span class="selected-color">Black</span></div>
+          <div class="color-buttons">
+            <button class="color-button active" type="button" data-color="Black" data-front="traditional-black-front.png" data-back="traditional-black-back.png"><span class="color-dot"></span>Black</button>
+            <button class="color-button" type="button" data-color="Grey" data-front="traditional-grey-front.png" data-back="traditional-grey-back.png"><span class="color-dot"></span>Grey</button>
+            <button class="color-button" type="button" data-color="Coffee" data-front="traditional-coffee-front.png" data-back="traditional-coffee-back.png"><span class="color-dot"></span>Coffee</button>
+            <button class="color-button" type="button" data-color="Maroon" data-front="traditional-maroon-front.png" data-back="traditional-maroon-back.png"><span class="color-dot"></span>Maroon</button>
+          </div>
         </div>
         <details><summary>Description<span>+</span></summary><p>The Traditional hoodie carries the mood mark in a cleaner, heritage-inspired format. Pick your wash and wear it daily.</p></details>
-        <button class="buy add-cart" type="button" data-name="Traditional Hoodie" data-price="75" data-img="assets/traditional-black-front.png" data-color="Black"><span>Add to Cart</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg></button>
+        <button class="buy add-cart" type="button" data-name="Traditional Hoodie" data-price="75" data-img="traditional-black-front.png" data-color="Black"><span>Add to Cart</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg></button>
       </article>
-
 
       <article class="card">
         <div class="ph">
           <span class="figchip">Fig.06</span><span class="stock">In stock</span>
-          <img class="main" data-flip src="assets/snooze-front.png" data-front="assets/snooze-front.png" data-back="assets/snooze-back.png" alt="Snooze Hoodie">
-          <img data-front-mood src="assets/snooze-mood-front.jpg" alt="" aria-hidden="true" style="display:none">
+          <img class="main" data-flip src="snooze-front.png" data-front="snooze-front.png" data-back="snooze-back.png" alt="Snooze Hoodie">
           <button class="rotate-key" type="button" aria-label="Spin Snooze hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button>
         </div>
         <div class="prow"><div><div class="pname">Snooze Hoodie</div><div class="psub">Sunfade oversized · fang / snooze</div></div><div class="price">$70.99</div></div>
         <div class="swatches"><span class="sw" style="background:linear-gradient(180deg,#a9c3d6 20%,#41708f 80%)"></span><span class="swlabel">Sunfade Blue · S–2XL</span></div>
-        <div class="frontpick" data-fp>
-          <span class="fp-label">Front</span>
-          <div class="fp-opts">
-            <button type="button" class="fp-btn on" data-fp-val="fang">Fang</button>
-            <button type="button" class="fp-btn" data-fp-val="mood">mood.</button>
-          </div>
+        <div class="logo-choice">
+          <label for="snoozeLogo">Front Logo</label>
+          <select class="logo-select" id="snoozeLogo" data-logo-select>
+            <option value="Teeth" selected>Teeth</option>
+            <option value="Mood Writing">Mood</option>
+          </select>
+          <div class="logo-note">Your logo choice will be saved in cart.</div>
         </div>
-        <p class="fp-note" data-fp-note>pick a front · the photo updates for mood.</p>
         <details><summary>Description<span>+</span></summary><p>The Snooze hoodie represents the lazy feeling when you walk into school. Wake up feeling ugh? Wear Snooze.</p></details>
-        <button class="buy add-cart" type="button" data-name="Snooze Hoodie" data-price="70.99" data-img="assets/snooze-front.png" data-color="Sunfade Blue"><span>Add to Cart</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg></button>
+        <button class="buy add-cart" type="button" data-name="Snooze Hoodie" data-price="70.99" data-img="snooze-front.png" data-color="Sunfade Blue" data-logo="Teeth"><span>Add to Cart</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg></button>
       </article>
 
       <article class="card">
         <div class="ph">
           <span class="figchip">Fig.07</span><span class="stock">In stock</span>
-          <img class="main" data-flip src="assets/lockedin-front.png" data-front="assets/lockedin-front.png" data-back="assets/lockedin-back.png" alt="Locked In Hoodie">
+          <img class="main" data-flip src="lockedin-front.png" data-front="lockedin-front.png" data-back="lockedin-back.png" alt="Locked In Hoodie">
           <button class="rotate-key" type="button" aria-label="Spin Locked In hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button>
         </div>
         <div class="prow"><div><div class="pname">Locked In Hoodie</div><div class="psub">Washed heavyweight · fang / 集中</div></div><div class="price">$74.00</div></div>
         <div class="swatches"><span class="sw" style="background:#3a322e;box-shadow:0 0 0 2px var(--blue)"></span><span class="swlabel">Washed Black · S–2XL</span></div>
-        <div class="frontpick" data-fp>
-          <span class="fp-label">Front</span>
-          <div class="fp-opts">
-            <button type="button" class="fp-btn on" data-fp-val="fang">Fang</button>
-            <button type="button" class="fp-btn" data-fp-val="mood">mood.</button>
-          </div>
+        <div class="logo-choice">
+          <label for="lockedLogo">Front Logo</label>
+          <select class="logo-select" id="lockedLogo" data-logo-select>
+            <option value="Teeth" selected>Teeth</option>
+            <option value="Mood Writing">Mood</option>
+          </select>
+          <div class="logo-note">Your logo choice will be saved in cart.</div>
         </div>
-        <p class="fp-note" data-fp-note>photos show the fang front · your pick goes on the cart item</p>
         <details><summary>Description<span>+</span></summary><p>The Locked In hoodie represents a focused mood — studying, hooping, or getting work done.</p></details>
-        <button class="buy add-cart" type="button" data-name="Locked In Hoodie" data-price="74" data-img="assets/lockedin-front.png" data-color="Washed Black"><span>Add to Cart</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg></button>
+        <button class="buy add-cart" type="button" data-name="Locked In Hoodie" data-price="74" data-img="lockedin-front.png" data-color="Washed Black" data-logo="Teeth"><span>Add to Cart</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg></button>
       </article>
 
     </div>
@@ -463,7 +440,7 @@ footer{border-top:1px solid var(--line);overflow:hidden}
         <p style="color:var(--mut);margin:22px 0 0;max-width:420px;font-size:15px">Our debut pieces — designed by us, photographed by us, worn by us first. The shop is open.</p>
         <div class="live"><span class="dot"></span><span class="micro" style="letter-spacing:.2em">Live now — shop open</span></div>
       </div>
-      <div class="photo-frame"><img src="assets/og-grey-back.png" alt="The OG hoodie back"></div>
+      <div class="photo-frame"><img src="og-back.png" alt="The OG hoodie back"></div>
     </div>
   </div>
 </section>
@@ -608,38 +585,41 @@ footer{border-top:1px solid var(--line);overflow:hidden}
   });
 
 
-  // ---------- colorway switcher ----------
-  document.querySelectorAll('.color-product').forEach(function(card){
+  // ---------- SIMPLE COLORWAY BUTTONS ----------
+  document.querySelectorAll('.product-card').forEach(function(card){
     var img = card.querySelector('img.main');
-    var label = card.querySelector('[data-color-name]');
-    var addBtn = card.querySelector('.add-cart');
-    var showingBack = false;
-
-    function setColor(sw){
-      var color = sw.dataset.color;
-      var front = sw.dataset.front;
-      var back = sw.dataset.back;
-      card.dataset.currentColor = color;
-      card.querySelectorAll('.color-swatch').forEach(function(s){ s.classList.toggle('active', s === sw); });
-      if(label) label.textContent = color;
-      if(addBtn){
-        addBtn.dataset.color = color;
-        addBtn.dataset.img = front;
-      }
-      img.classList.remove('color-changing');
-      void img.offsetWidth;
-      img.classList.add('color-changing');
-      img.dataset.front = front;
-      img.dataset.back = back;
-      img.src = front;
-      showingBack = false;
-      setTimeout(function(){ img.classList.remove('color-changing'); }, 360);
-    }
-
-    card.querySelectorAll('.color-swatch').forEach(function(sw){
-      sw.addEventListener('click', function(){ setColor(sw); });
-      sw.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); setColor(sw); } });
+    var label = card.querySelector('.selected-color');
+    var add = card.querySelector('.add-cart');
+    card.querySelectorAll('.color-button').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var color = btn.dataset.color;
+        var front = btn.dataset.front;
+        var back = btn.dataset.back;
+        card.querySelectorAll('.color-button').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        if(label) label.textContent = color;
+        if(add){ add.dataset.color = color; add.dataset.img = front; }
+        img.dataset.front = front;
+        img.dataset.back = back;
+        img.classList.remove('color-changing');
+        void img.offsetWidth;
+        img.classList.add('color-changing');
+        img.src = front;
+        setTimeout(function(){ img.classList.remove('color-changing'); }, 320);
+      });
     });
+  });
+
+
+  // ---------- logo customization ----------
+  document.querySelectorAll('[data-logo-select]').forEach(function(select){
+    var card = select.closest('.card');
+    var addBtn = card ? card.querySelector('.add-cart') : null;
+    function updateLogo(){
+      if(addBtn) addBtn.dataset.logo = select.value;
+    }
+    select.addEventListener('change', updateLogo);
+    updateLogo();
   });
 
   var cart=[],cartLink=document.getElementById('cartLink'),cartCount=document.getElementById('cartCount'),cartDrawer=document.getElementById('cartDrawer'),cartClose=document.getElementById('cartClose'),cartItems=document.getElementById('cartItems'),cartTotal=document.getElementById('cartTotal');
@@ -663,7 +643,7 @@ footer{border-top:1px solid var(--line);overflow:hidden}
   }
   document.querySelectorAll('.add-cart').forEach(function(button){
     button.addEventListener('click',function(){
-      var item={name:button.dataset.name + (button.dataset.color ? ' — ' + button.dataset.color : ''),price:parseFloat(button.dataset.price),img:button.dataset.img,qty:1};
+      var item={name:button.dataset.name + (button.dataset.color ? ' — ' + button.dataset.color : '') + (button.dataset.logo ? ' — Logo: ' + button.dataset.logo : ''),price:parseFloat(button.dataset.price),img:button.dataset.img,qty:1};
       var existing=cart.find(function(i){return i.name===item.name}); if(existing) existing.qty++; else cart.push(item);
       flyToCart(button);updateCart();setTimeout(openCart,380);
     });
@@ -676,32 +656,6 @@ footer{border-top:1px solid var(--line);overflow:hidden}
     if(dec!==null){cart[+dec].qty--;if(cart[+dec].qty<=0)cart.splice(+dec,1);updateCart()}
   });
   updateCart();
-
-  // ---------- front-graphic picker (fang vs mood. wordmark) ----------
-  document.querySelectorAll('[data-fp]').forEach(function(fp){
-    var card=fp.closest('article'); if(!card) return;
-    var note=card.querySelector('[data-fp-note]');
-    var btn=card.querySelector('.add-cart');
-    var img=card.querySelector('img.main');
-    var moodEl=card.querySelector('[data-front-mood]');
-    if(btn && !btn.dataset.baseName) btn.dataset.baseName=btn.dataset.name;
-    if(img && !img.dataset.fangFront) img.dataset.fangFront=img.dataset.front;
-    fp.querySelectorAll('.fp-btn').forEach(function(b){
-      b.addEventListener('click',function(){
-        fp.querySelectorAll('.fp-btn').forEach(function(x){x.classList.remove('on')});
-        b.classList.add('on');
-        var v=b.getAttribute('data-fp-val');
-        if(btn) btn.dataset.name=btn.dataset.baseName+(v==='mood'?' (mood. front)':' (fang front)');
-        if(note) note.textContent=(v==='mood'?'mood. wordmark front selected':'fang front selected')+(moodEl?'':' · photos show the fang version');
-        if(img && moodEl){
-          var wasFront = img.getAttribute('src')===img.dataset.front;
-          var newFront = (v==='mood') ? moodEl.getAttribute('src') : (img.dataset.fangFront||img.dataset.front);
-          img.dataset.front=newFront;
-          if(wasFront) img.src=newFront;
-        }
-      });
-    });
-  });
 
   function hook(formId,inputId,noteId,msg){
     var form=document.getElementById(formId);if(!form)return;
