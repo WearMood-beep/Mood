@@ -4,249 +4,302 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>mood. — wear your mood</title>
-<meta name="description" content="mood — clothing for every mood. Made by teens, for teens. 気分.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230c0c0c'/%3E%3Ctext x='16' y='24' font-family='Archivo,Arial,sans-serif' font-size='23' font-weight='900' text-anchor='middle' fill='%23f2efe8'%3EM%3Ctspan fill='%233b6dff'%3E.%3C/tspan%3E%3C/text%3E%3C/svg%3E">
+<meta name="description" content="mood — clothing for every mood. Made by teens, for teens.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0c0c0c; --ink:#f2efe8; --blue:#3b6dff; --blue-2:#6c9bff;
-    --mut:#a9a69f; --dim:#8f8c85; --faint:#57534b; --line:rgba(255,255,255,.1);
+:root{
+  --bg:#0c0c0c;
+  --ink:#f2efe8;
+  --blue:#3b6dff;
+  --blue2:#6c9bff;
+  --mut:#a9a69f;
+  --dim:#8f8c85;
+  --line:rgba(255,255,255,.1);
+  --cream:#f6f1e8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{background:var(--bg);color:var(--ink);font-family:Archivo,system-ui,-apple-system,sans-serif;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font-family:inherit}
+.wrap{max-width:1320px;margin:0 auto;padding:0 30px}
+.micro{font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:800}
+.num{color:var(--blue)}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--blue);z-index:130}
+
+/* intro */
+#intro{position:fixed;inset:0;z-index:220;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;transition:transform .65s cubic-bezier(.76,0,.24,1)}
+#intro.done{transform:translateY(-105%)}
+#intro .roll{height:1.22em;overflow:hidden;text-align:center;font-family:'Space Grotesk','Noto Sans JP',sans-serif;font-size:clamp(56px,11vw,110px);line-height:1.2;font-weight:800;color:var(--blue2)}
+#rollWord{display:block;text-shadow:0 0 70px rgba(59,109,255,.5);transition:transform .12s ease,opacity .12s ease}
+#rollWord.out{transform:translateY(-70%) rotateX(65deg);opacity:0}
+#rollWord.pre{transition:none;transform:translateY(70%) rotateX(-65deg);opacity:0}
+#intro .word{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:.4em;text-transform:uppercase;color:var(--ink);opacity:.9}
+
+/* nav */
+header{position:fixed;top:0;left:0;right:0;z-index:110;background:linear-gradient(180deg,rgba(12,12,12,.72),rgba(12,12,12,0));backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:.3s}
+header.on{background:rgba(12,12,12,.94);border-bottom-color:var(--line)}
+nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:baseline;gap:12px;text-decoration:none}
+.brand .word{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:25px;text-transform:uppercase;letter-spacing:-.01em}
+.brand .kj{font-family:'Noto Sans JP',sans-serif;color:var(--blue2);font-weight:700;font-size:15px;position:relative;top:-.15em;transition:.16s}
+.brand .kj.out{transform:translateY(-.5em);opacity:0}
+.brand .kj.pre{transition:none;transform:translateY(.5em);opacity:0}
+.navlinks{display:flex;align-items:center;gap:22px}
+.navlinks a:not(.cartlink):not(.joinbtn){font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:700;text-decoration:none;position:relative;transition:.2s;white-space:nowrap}
+.navlinks a:not(.cartlink):not(.joinbtn)::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:right;transition:.3s}
+.navlinks a:not(.cartlink):not(.joinbtn):hover{color:var(--ink)}
+.navlinks a:not(.cartlink):not(.joinbtn):hover::after{transform:scaleX(1);transform-origin:left}
+.joinbtn{display:inline-block;font-weight:800;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:11px 18px;background:var(--blue);color:var(--ink);text-decoration:none;position:relative;overflow:hidden}
+.joinbtn span{position:relative;z-index:1}
+.joinbtn::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:.3s cubic-bezier(.76,0,.24,1)}
+.joinbtn:hover::before{transform:translateY(0)}
+.joinbtn:hover{color:var(--bg)}
+.cartlink{position:relative;display:inline-flex;align-items:center;justify-content:center;color:var(--mut);text-decoration:none;transition:.2s}
+.cartlink:hover{color:var(--ink);transform:translateY(-1px)}
+.cartbadge{position:absolute;top:-9px;right:-10px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--blue);color:var(--ink);font-size:10px;line-height:16px;text-align:center;font-weight:900;transform:scale(0);transition:.2s}
+.cartbadge.on{transform:scale(1)}
+.cartlink.bump{animation:cartBump .38s ease}
+@keyframes cartBump{50%{transform:translateY(-2px) scale(1.16)}}
+@media(max-width:800px){.navlinks{gap:14px}.navlinks a:not(.cartlink):not(.joinbtn){display:none}.joinbtn{padding:10px 14px}}
+
+/* hero */
+.hero{min-height:100vh;display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.hero-l{flex:1 1 460px;min-width:320px;display:flex;flex-direction:column;justify-content:center;padding:120px 30px 60px;max-width:760px;margin-left:max(0px,calc((100vw - 1320px)/2))}
+.kicker{display:flex;align-items:center;gap:14px;margin-bottom:30px}
+.kicker .rule{flex:1;height:1px;background:rgba(255,255,255,.14);max-width:120px}
+h1.mood{font-family:'Space Grotesk',sans-serif;font-weight:800;letter-spacing:-.03em;font-size:clamp(88px,15.5vw,200px);line-height:.84;text-transform:uppercase;display:flex}
+h1.mood .ch{display:inline-block;animation:rise .8s cubic-bezier(.22,1,.36,1) both;transition:.2s}
+h1.mood .ch:hover{color:var(--blue2);transform:skewX(-6deg)}
+@keyframes rise{from{opacity:0;transform:translateY(60%)}to{opacity:1;transform:none}}
+.tag{font-size:clamp(17px,2vw,22px);color:#d8d4cb;font-weight:500;margin:30px 0 0;max-width:440px}
+.emailform{display:flex;margin-top:44px;max-width:440px;border-bottom:1px solid rgba(255,255,255,.28);transition:.3s}
+.emailform:focus-within{border-bottom-color:var(--blue)}
+.emailform input{flex:1;min-width:180px;background:transparent;border:none;color:var(--ink);padding:14px 2px;font-size:15px;outline:none}
+.emailform button{font-weight:800;font-size:12px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--blue);padding:0 4px;transition:.25s}
+.emailform button:hover{letter-spacing:.32em}
+.formnote{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:16px;font-weight:700;min-height:16px}
+.hero-r{flex:1 1 420px;min-width:300px;position:relative;overflow:hidden;min-height:60vh;background:radial-gradient(60% 45% at 50% 50%,rgba(59,109,255,.16),transparent 70%),repeating-linear-gradient(0deg,transparent 0 47px,rgba(255,255,255,.045) 47px 48px),repeating-linear-gradient(90deg,transparent 0 47px,rgba(255,255,255,.045) 47px 48px)}
+.fig{position:absolute;top:24px;left:24px;z-index:2}
+.kanji-big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--blue2);font-family:'Noto Sans JP',sans-serif;font-size:clamp(150px,27vh,300px);line-height:1.06;text-shadow:0 0 90px rgba(59,109,255,.45);animation:floaty 7s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(-8px)}50%{transform:translateY(10px)}}
+
+/* ticker */
+.ticker{border-bottom:1px solid var(--line);overflow:hidden;padding:20px 0}
+.ticker.top{border-top:1px solid var(--line)}
+.tk{display:flex;width:max-content;animation:marquee 28s linear infinite}
+.tk.rev{animation:marqueeRev 34s linear infinite}
+.tk>div{display:flex;align-items:center;gap:30px;padding-right:30px;font-weight:900;font-size:14px;letter-spacing:.24em;text-transform:uppercase;white-space:nowrap}
+.tk .kj{color:var(--blue)}
+.tk.ghost>div{color:transparent;-webkit-text-stroke:1px rgba(242,239,232,.5);font-size:22px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes marqueeRev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+/* sections */
+section{position:relative}
+.sect{padding:110px 30px 90px}
+.shead{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;border-bottom:1px solid var(--line);padding-bottom:30px}
+.shead h2{font-weight:900;letter-spacing:-.03em;text-transform:uppercase;font-size:clamp(40px,6vw,84px);line-height:.94;margin:18px 0 0;overflow:hidden}
+.shead h2 .clip{display:block;transform:translateY(110%);transition:.9s cubic-bezier(.22,1,.36,1)}
+.in .shead h2 .clip{transform:none}
+.shead p{color:var(--mut);max-width:390px;font-size:15px}
+[data-reveal]{position:relative;opacity:1;transform:none;filter:none;clip-path:none}
+[data-reveal]::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;z-index:5;background:linear-gradient(90deg,rgba(59,109,255,.28),transparent 58%),repeating-linear-gradient(90deg,rgba(242,239,232,.14) 0 6px,transparent 6px 12px),repeating-linear-gradient(0deg,rgba(242,239,232,.07) 0 6px,transparent 6px 12px);mix-blend-mode:screen;transform:translateX(-105%)}
+[data-reveal].pixel-in{animation:softLeftIn .65s cubic-bezier(.22,1,.36,1) both}
+[data-reveal].pixel-in::before{animation:pixelSweep .68s steps(14,end) both}
+@keyframes softLeftIn{0%{transform:translateX(-28px);filter:blur(6px)}100%{transform:none;filter:none}}
+@keyframes pixelSweep{0%{opacity:0;transform:translateX(-105%)}18%{opacity:1}100%{opacity:0;transform:translateX(105%)}}
+
+/* piece */
+.duo{position:relative;margin-top:40px;overflow:hidden;border:1px solid var(--line)}
+.duo .chip{position:absolute;top:22px;left:22px;z-index:2;color:var(--bg);background:var(--ink);padding:7px 13px}
+.duo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--line)}
+.duo-grid img{width:100%;aspect-ratio:4/5;object-fit:contain;background:var(--cream);padding:28px;transition:.8s cubic-bezier(.22,1,.36,1)}
+.duo-grid img:hover{transform:scale(1.025)}
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));border-left:1px solid var(--line)}
+.spec{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:26px 24px;transition:.3s}
+.spec:hover{background:rgba(59,109,255,.07)}
+.spec .k{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);font-weight:800}
+.spec .v{font-weight:800;font-size:17px;margin-top:8px}
+
+/* collection */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:42px;margin-top:54px}
+.card{display:flex;flex-direction:column;position:relative;transition:.45s cubic-bezier(.22,1,.36,1)}
+.card:hover{transform:translateY(-6px)}
+.ph{position:relative;overflow:hidden;border:1px solid var(--line);background:var(--cream);min-height:420px;display:flex;align-items:center;justify-content:center;perspective:900px}
+.ph .figchip{position:absolute;top:16px;left:16px;z-index:2;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--bg);font-weight:800}
+.ph .stock{position:absolute;top:16px;right:16px;z-index:2;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--bg);font-weight:800;background:rgba(255,255,255,.72);padding:5px 10px}
+.ph img.main{width:100%;height:100%;aspect-ratio:4/5;object-fit:contain;padding:28px;background:var(--cream);transform-style:preserve-3d;backface-visibility:hidden}
+.rotate-key{position:absolute;right:16px;bottom:16px;z-index:8;width:42px;height:42px;border:1px solid rgba(12,12,12,.18);border-radius:999px;background:rgba(255,255,255,.82);color:#0c0c0c;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.22s;backdrop-filter:blur(8px)}
+.rotate-key:hover{transform:rotate(28deg) scale(1.06);background:#fff;border-color:rgba(12,12,12,.35)}
+.ph img.main.spinning{animation:hoodieSpin .62s cubic-bezier(.22,1,.36,1)}
+@keyframes hoodieSpin{0%{transform:rotateY(0deg) scale(1.01);opacity:1}42%{transform:rotateY(86deg) scale(.94);opacity:.22}100%{transform:rotateY(0deg) scale(1);opacity:1}}
+.prow{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding-top:24px}
+.pname{font-weight:900;font-size:20px;letter-spacing:-.01em}
+.psub{color:var(--dim);font-size:13px;margin-top:5px}
+.price{font-weight:900;font-size:20px;white-space:nowrap}
+.swatches{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.sw{width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,.25)}
+.swlabel{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:700;margin-left:6px}
+details{margin-top:18px;border-top:1px solid rgba(255,255,255,.12)}
+summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0 0;cursor:pointer;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);font-weight:800}
+summary::-webkit-details-marker{display:none}
+details p{color:var(--mut);font-size:14px;line-height:1.6;margin:12px 0 0}
+.buy{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;font-weight:900;font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding:14px 22px;background:var(--blue);color:var(--ink);border:none;text-decoration:none;cursor:pointer;position:relative;overflow:hidden;transition:.25s}
+.buy span,.buy svg{position:relative;z-index:1}
+.buy::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:.3s cubic-bezier(.76,0,.24,1)}
+.buy:hover::before{transform:translateY(0)}
+.buy:hover{color:var(--bg)}
+
+/* manifesto/drop/cta */
+.mani{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
+.mani .wm{position:absolute;top:50%;left:0;width:100%;text-align:center;font-family:'Noto Sans JP',sans-serif;font-weight:800;font-size:clamp(220px,42vw,560px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(59,109,255,.14);pointer-events:none;white-space:nowrap;transform:translateY(-50%)}
+.mani p.big{font-weight:700;font-size:clamp(26px,4vw,52px);line-height:1.18;letter-spacing:-.02em;margin:30px 0 0;max-width:1040px;position:relative}
+.hl{color:var(--blue)}
+.dropgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:50px;align-items:center}
+.live{display:inline-flex;align-items:center;gap:12px;margin-top:36px;border:1px solid var(--line);padding:16px 24px}
+.dot{width:9px;height:9px;border-radius:50%;background:#43d17c;box-shadow:0 0 0 0 rgba(67,209,124,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(67,209,124,0)}100%{box-shadow:0 0 0 0 rgba(67,209,124,0)}}
+.photo-frame{position:relative;overflow:hidden;border:1px solid var(--line)}
+.photo-frame img{width:100%;aspect-ratio:4/5;object-fit:contain;background:var(--cream);padding:28px}
+.cta{border-top:1px solid var(--line);text-align:center}
+.cta h2{font-weight:900;letter-spacing:-.03em;text-transform:uppercase;font-size:clamp(40px,7vw,96px);line-height:.9;margin:20px 0 0}
+.size-table{overflow-x:auto;margin-top:34px}
+.size-table table{width:100%;border-collapse:collapse;min-width:560px}
+.size-table th{padding:16px 12px;text-align:left;color:var(--dim);font-size:11px;letter-spacing:.18em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+.size-table td{padding:16px 12px;border-bottom:1px solid var(--line)}
+
+/* cart drawer */
+.cart-drawer{position:fixed;top:0;right:0;width:min(420px,92vw);height:100vh;background:#111;color:var(--ink);z-index:190;border-left:1px solid var(--line);transform:translateX(105%);transition:.45s cubic-bezier(.76,0,.24,1);display:flex;flex-direction:column;box-shadow:-30px 0 80px rgba(0,0,0,.35)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:24px;border-bottom:1px solid var(--line)}
+.cart-head h3{font-size:18px;letter-spacing:.18em;text-transform:uppercase}
+.cart-close{background:none;border:none;color:var(--ink);font-size:26px;cursor:pointer}
+.cart-items{flex:1;overflow:auto;padding:10px 24px}
+.cart-empty{color:var(--mut);padding:30px 0;font-size:14px}
+.cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
+.cart-item img{width:64px;height:78px;object-fit:contain;background:var(--cream)}
+.ci-name{font-weight:900}
+.ci-price{color:var(--mut);font-size:13px;margin-top:3px}
+.qty{display:flex;align-items:center;gap:9px}
+.qty button{width:24px;height:24px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.cart-foot{padding:24px;border-top:1px solid var(--line)}
+.cart-total{display:flex;justify-content:space-between;font-weight:900;font-size:20px;margin-bottom:18px}
+.checkout-btn{width:100%;display:flex;align-items:center;justify-content:center;padding:15px 20px;background:var(--blue);color:var(--ink);font-weight:900;text-decoration:none;letter-spacing:.18em;text-transform:uppercase;font-size:12px}
+.fly-img{position:fixed;z-index:230;width:92px;height:112px;object-fit:contain;background:var(--cream);pointer-events:none;border:1px solid rgba(0,0,0,.1);transition:transform .72s cubic-bezier(.22,1,.36,1),opacity .72s ease}
+
+/* footer */
+footer{border-top:1px solid var(--line);overflow:hidden}
+.foot{padding:44px 30px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:22px}
+.foot .social{display:flex;gap:26px}
+.foot .social a{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);text-decoration:none;font-weight:700;transition:.2s}
+.foot .social a:hover{color:var(--blue)}
+.copy{color:#57534b;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;width:100%}
+@media(max-width:720px){.cards{gap:34px}.ph{min-height:360px}.ph img.main{padding:22px}.sect{padding:90px 22px 76px}.wrap{padding:0 22px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}[data-reveal]{opacity:1;transform:none;filter:none;clip-path:none}}
+
+/* premium color selector */
+.color-label{
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--dim);
+  font-weight:800;
+  margin-top:15px;
+}
+.swatches.colorways{gap:12px;margin-top:10px}
+.sw.color-swatch{
+  position:relative;
+  width:25px;
+  height:25px;
+  border:1px solid rgba(255,255,255,.28);
+  box-shadow:none;
+  cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.sw.color-swatch:hover{transform:scale(1.16)}
+.sw.color-swatch.active{
+  border-color:var(--blue);
+  box-shadow:0 0 0 2px var(--blue),0 0 18px rgba(59,109,255,.32);
+}
+.product-img-wrap{position:relative;width:100%}
+.ph img.main.color-changing{animation:colorFade .32s ease}
+@keyframes colorFade{
+  0%{opacity:.35;transform:scale(.985)}
+  100%{opacity:1;transform:scale(1)}
+}
+.collection-note{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--dim);
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-weight:800;
+  margin-top:12px;
+}
+.collection-note::before{
+  content:"";
+  width:7px;
+  height:7px;
+  background:var(--blue);
+  border-radius:999px;
+}
+@media(min-width:900px){
+  #collection .cards{
+    grid-template-columns:repeat(2,minmax(320px,1fr));
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;scroll-padding-top:84px}
-  body{background:var(--bg);color:var(--ink);font-family:'Archivo',system-ui,-apple-system,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  ::selection{background:var(--blue);color:var(--ink)}
-  img{display:block;max-width:100%}
-  a{color:inherit}
-  .wrap{max-width:1320px;margin:0 auto;padding:0 30px}
-  .micro{font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:700}
-  .num{color:var(--blue)}
+}
 
-  /* ---------- intro loader (rolodex of "mood" in many languages) ---------- */
-  #intro{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;transition:transform .6s cubic-bezier(.76,0,.24,1)}
-  #intro .roll{height:1.25em;overflow:hidden;perspective:700px;text-align:center;
-    font-family:'Space Grotesk','Noto Sans JP','Apple SD Gothic Neo','Hiragino Kaku Gothic ProN','Kohinoor Devanagari','Geeza Pro',sans-serif;
-    font-weight:700;font-size:clamp(56px,11vw,110px);line-height:1.25;color:var(--blue-2)}
-  #intro .roll span{display:block;transition:transform .12s ease,opacity .12s ease;text-shadow:0 0 70px rgba(59,109,255,.5);animation:introPulse .5s ease both}
-  #intro .roll span.out{transform:translateY(-70%) rotateX(65deg);opacity:0}
-  #intro .roll span.pre{transition:none;transform:translateY(70%) rotateX(-65deg);opacity:0}
-  #intro .word{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:.4em;text-transform:uppercase;color:var(--ink);opacity:0;animation:introWord .5s ease .25s forwards}
-  #intro.done{transform:translateY(-100%)}
-  @keyframes introPulse{0%{opacity:0;transform:scale(.94)}100%{opacity:1;transform:scale(1)}}
-  @keyframes introWord{to{opacity:1}}
 
-  /* ---------- scroll progress ---------- */
-  #prog{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--blue);z-index:120}
+/* colorway selector */
+.color-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:800;margin-top:15px}
+.swatches.colorways{gap:12px;margin-top:10px}
+.sw.color-swatch{width:25px;height:25px;border-radius:50%;border:1px solid rgba(255,255,255,.32);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.sw.color-swatch:hover{transform:scale(1.16)}
+.sw.color-swatch.active{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue),0 0 18px rgba(59,109,255,.32)}
+.ph img.main.color-changing{animation:colorFade .32s ease}
+@keyframes colorFade{0%{opacity:.35;transform:scale(.985)}100%{opacity:1;transform:scale(1)}}
+@media(min-width:900px){#collection .cards{grid-template-columns:repeat(2,minmax(320px,1fr))}}
 
-  /* ---------- nav ---------- */
-  header{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(10px);border-bottom:1px solid transparent;background:linear-gradient(180deg,rgba(12,12,12,.65),rgba(12,12,12,0));transition:background .3s,border-color .3s}
-  header.on{background:rgba(12,12,12,.92);border-bottom-color:var(--line)}
-  nav{display:flex;align-items:center;justify-content:space-between;height:74px;gap:18px}
-  .brand{display:inline-flex;align-items:baseline;gap:12px;text-decoration:none}
-  .brand .word{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:25px;letter-spacing:-.01em;line-height:1;text-transform:uppercase}
-  .brand .kj{font-family:'Noto Sans JP','Apple SD Gothic Neo','Kohinoor Devanagari','Geeza Pro',sans-serif;font-weight:700;font-size:15px;color:var(--blue-2);display:inline-block;position:relative;top:-.2em;transition:transform .16s ease,opacity .16s ease}
-  .brand .kj.out{transform:translateY(-.5em);opacity:0}
-  .brand .kj.pre{transition:none;transform:translateY(.5em);opacity:0}
-  .navlinks{display:flex;align-items:center;gap:34px}
-  .navlinks a:not(.joinbtn){font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);font-weight:600;text-decoration:none;position:relative;transition:color .2s}
-  .navlinks a:not(.joinbtn)::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:right;transition:transform .3s}
-  .navlinks a:not(.joinbtn):hover{color:var(--ink)}
-  .navlinks a:not(.joinbtn):hover::after{transform:scaleX(1);transform-origin:left}
-  .joinbtn{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding:12px 22px;background:var(--blue);color:var(--ink);text-decoration:none;position:relative;overflow:hidden;transition:color .25s}
-  .joinbtn span{position:relative;z-index:1}
-  .joinbtn::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .3s cubic-bezier(.76,0,.24,1)}
-  .joinbtn:hover::before{transform:translateY(0)}
-  .joinbtn:hover{color:var(--bg)}
-  @media(max-width:720px){.navlinks a:not(.joinbtn){display:none}}
-
-  /* ---------- hero ---------- */
-  .hero{min-height:100vh;display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line)}
-  .hero-l{flex:1 1 460px;min-width:320px;display:flex;flex-direction:column;justify-content:center;padding:120px 30px 60px;max-width:760px;margin-left:max(0px,calc((100vw - 1320px)/2))}
-  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:30px}
-  .kicker .rule{flex:1;height:1px;background:rgba(255,255,255,.14);max-width:120px}
-  h1.mood{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(88px,15.5vw,200px);line-height:.84;text-transform:uppercase;display:flex}
-  h1.mood .ch{display:inline-block;animation:rise .8s cubic-bezier(.22,1,.36,1) both;transition:color .2s,transform .2s}
-  h1.mood .ch:hover{color:var(--blue-2);transform:skewX(-6deg)}
-  @keyframes rise{from{opacity:0;transform:translateY(60%)}to{opacity:1;transform:none}}
-  .tag{font-size:clamp(17px,2vw,22px);color:#d8d4cb;font-weight:500;margin:30px 0 0;max-width:440px;text-wrap:pretty}
-  .heroform{display:flex;margin-top:44px;max-width:440px;border-bottom:1px solid rgba(255,255,255,.28);transition:border-color .3s}
-  .heroform:focus-within{border-bottom-color:var(--blue)}
-  .heroform input{flex:1;min-width:180px;background:transparent;border:none;color:var(--ink);padding:14px 2px;font-size:15px;font-family:inherit;outline:none;letter-spacing:.01em}
-  .heroform button{font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--blue);padding:0 4px;transition:letter-spacing .25s}
-  .heroform button:hover{letter-spacing:.32em}
-  .formnote{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:16px;font-weight:600;min-height:16px}
-  .hero-r{flex:1 1 420px;min-width:300px;position:relative;overflow:hidden;min-height:60vh;background:
-      radial-gradient(60% 45% at 50% 50%, rgba(59,109,255,.16), transparent 70%),
-      repeating-linear-gradient(0deg, transparent 0 47px, rgba(255,255,255,.045) 47px 48px),
-      repeating-linear-gradient(90deg, transparent 0 47px, rgba(255,255,255,.045) 47px 48px)}
-  .fig{position:absolute;top:24px;left:24px;z-index:2}
-  .kanji-big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--blue-2);font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;font-weight:500;font-size:clamp(150px,27vh,300px);line-height:1.06;will-change:transform;animation:floaty 7s ease-in-out infinite;text-shadow:0 0 90px rgba(59,109,255,.45)}
-  @keyframes floaty{0%,100%{transform:translateY(-8px)}50%{transform:translateY(10px)}}
-
-  /* ---------- ticker ---------- */
-  .ticker{border-bottom:1px solid var(--line);overflow:hidden;padding:20px 0}
-  .ticker.top{border-top:1px solid var(--line)}
-  .tk{display:flex;width:max-content;animation:marquee 28s linear infinite;will-change:transform}
-  .ticker:hover .tk{animation-play-state:paused}
-  .tk > div{display:flex;align-items:center;gap:30px;padding-right:30px;font-weight:800;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
-  .tk .kj{color:var(--blue)}
-  .tk.rev{animation:marqueeRev 34s linear infinite}
-  .tk.ghost > div{color:transparent;-webkit-text-stroke:1px rgba(242,239,232,.5);font-size:22px;font-weight:900}
-  @keyframes marquee{to{transform:translateX(-50%)}}
-  @keyframes marqueeRev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-
-  /* ---------- sections ---------- */
-  section{position:relative}
-  .sect{padding:110px 30px 90px}
-  .shead{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;border-bottom:1px solid var(--line);padding-bottom:30px}
-  .shead h2{font-weight:900;letter-spacing:-.03em;text-transform:uppercase;font-size:clamp(40px,6vw,84px);line-height:.94;margin:18px 0 0;overflow:hidden}
-  .shead h2 .clip{display:block;transform:translateY(110%);transition:transform .9s cubic-bezier(.22,1,.36,1)}
-  .in .shead h2 .clip{transform:none}
-  .shead p{color:var(--mut);max-width:360px;font-size:15px;text-wrap:pretty}
-
-  /* reveal */
-  [data-reveal]{opacity:0;transform:translateY(28px);filter:blur(6px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,1,.36,1),filter .8s ease}
-  [data-reveal].in{opacity:1;transform:none;filter:none}
-  [data-stagger] > *{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
-  [data-stagger].in > *{opacity:1;transform:none}
-  [data-stagger].in > *:nth-child(1){transition-delay:.05s}
-  [data-stagger].in > *:nth-child(2){transition-delay:.15s}
-  [data-stagger].in > *:nth-child(3){transition-delay:.25s}
-  [data-stagger].in > *:nth-child(4){transition-delay:.35s}
-
-  /* the piece */
-  .duo{position:relative;margin-top:40px;overflow:hidden;border:1px solid var(--line)}
-  .duo .chip{position:absolute;top:22px;left:22px;z-index:2;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--bg);font-weight:700;background:var(--ink);padding:7px 13px}
-  .duo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--line)}
-  .duo-grid img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1)}
-  .duo-grid img:hover{transform:scale(1.035)}
-  .specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));border-left:1px solid var(--line)}
-  .spec{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:26px 24px;transition:background .3s}
-  .spec:hover{background:rgba(59,109,255,.07)}
-  .spec .k{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);font-weight:700}
-  .spec .v{font-weight:700;font-size:17px;margin-top:8px}
-
-  /* collection */
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;margin-top:40px}
-  .card{display:flex;flex-direction:column;transition:transform .45s cubic-bezier(.22,1,.36,1)}
-  .card:hover{transform:translateY(-8px)}
-  .ph{position:relative;overflow:hidden;border:1px solid var(--line)}
-  .ph .figchip{position:absolute;top:16px;left:16px;z-index:2;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--bg);font-weight:700}
-  .ph .stock{position:absolute;top:16px;right:16px;z-index:2;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--bg);font-weight:700;background:rgba(255,255,255,.65);padding:5px 10px}
-  .ph img.main{width:100%;aspect-ratio:4/5;object-fit:cover;transition:opacity .18s ease,transform .8s cubic-bezier(.22,1,.36,1);cursor:pointer}
-  .card:hover .ph img.main{transform:scale(1.04)}
-  .ph .flipchip{position:absolute;bottom:14px;right:14px;z-index:2;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--bg);font-weight:700;background:rgba(255,255,255,.65);padding:5px 10px;pointer-events:none}
-  .prow{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding-top:20px}
-  .pname{font-weight:800;font-size:19px;letter-spacing:-.01em}
-  .psub{color:var(--dim);font-size:13px;margin-top:5px}
-  .price{font-weight:800;font-size:19px;white-space:nowrap}
-  .swatches{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
-  .sw{width:22px;height:22px;border-radius:50%;cursor:pointer;border:1px solid rgba(255,255,255,.25);transition:transform .2s}
-  .sw:hover{transform:scale(1.18)}
-  .swlabel{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-left:6px}
-  /* front-graphic picker */
-  .frontpick{display:flex;align-items:center;gap:10px;margin-top:16px}
-  .fp-label{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);font-weight:700}
-  .fp-opts{display:flex;border:1px solid var(--line)}
-  .fp-btn{font-family:inherit;background:transparent;border:none;color:var(--mut);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:8px 14px;cursor:pointer;transition:background .2s,color .2s}
-  .fp-btn+.fp-btn{border-left:1px solid var(--line)}
-  .fp-btn.on{background:var(--blue);color:var(--ink)}
-  .fp-btn:not(.on):hover{color:var(--ink)}
-  .fp-note{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-top:8px}
-  details{margin-top:18px;border-top:1px solid rgba(255,255,255,.12)}
-  summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0 0;cursor:pointer;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);font-weight:700;transition:color .2s}
-  summary:hover{color:var(--blue)}
-  summary::-webkit-details-marker{display:none}
-  details p{color:var(--mut);font-size:14px;line-height:1.6;margin:12px 0 0;text-wrap:pretty}
-  .buy{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding:14px 22px;background:var(--blue);color:var(--ink);text-decoration:none;position:relative;overflow:hidden;transition:color .25s}
-  .buy i{font-style:normal;transition:transform .3s}
-  .buy:hover i{transform:translateX(6px)}
-  .buy::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .3s cubic-bezier(.76,0,.24,1)}
-  .buy:hover::before{transform:translateY(0)}
-  .buy:hover{color:var(--bg)}
-  .buy span,.buy i{position:relative;z-index:1}
-
-  /* manifesto */
-  .mani{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;position:relative}
-  .mani .wm{position:absolute;top:50%;left:0;width:100%;text-align:center;font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:clamp(220px,42vw,560px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(59,109,255,.14);pointer-events:none;white-space:nowrap;will-change:transform}
-  .mani p.big{font-weight:600;font-size:clamp(26px,4vw,52px);line-height:1.18;letter-spacing:-.02em;margin:30px 0 0;max-width:1040px;text-wrap:pretty;position:relative}
-  .hl{color:var(--blue);position:relative;display:inline-block}
-  .hl::after{content:"";position:absolute;left:0;bottom:2px;width:100%;height:2px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform 1s cubic-bezier(.22,1,.36,1) .4s}
-  .in .hl::after{transform:scaleX(1)}
-
-  /* drop status */
-  .dropgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:50px;align-items:center}
-  .live{display:inline-flex;align-items:center;gap:12px;margin-top:36px;border:1px solid var(--line);padding:16px 24px}
-  .dot{width:9px;height:9px;border-radius:50%;background:#43d17c;box-shadow:0 0 0 0 rgba(67,209,124,.6);animation:pulse 1.8s infinite}
-  @keyframes pulse{70%{box-shadow:0 0 0 12px rgba(67,209,124,0)}100%{box-shadow:0 0 0 0 rgba(67,209,124,0)}}
-  .photo-frame{position:relative;overflow:hidden;border:1px solid var(--line)}
-  .photo-frame img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:70% 35%;transition:transform 6s ease}
-  .photo-frame:hover img{transform:scale(1.06)}
-  .photo-frame .figchip{position:absolute;top:20px;left:20px;z-index:2;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);font-weight:700;mix-blend-mode:difference}
-
-  /* cta */
-  .cta{border-top:1px solid var(--line);text-align:center}
-  .cta h2{font-weight:900;letter-spacing:-.03em;text-transform:uppercase;font-size:clamp(40px,7vw,96px);line-height:.9;margin:20px 0 0}
-  .cta form{display:flex;margin:40px auto 0;max-width:460px;border-bottom:1px solid rgba(255,255,255,.28);transition:border-color .3s}
-  .cta form:focus-within{border-bottom-color:var(--blue)}
-  .cta input{flex:1;min-width:180px;background:transparent;border:none;color:var(--ink);padding:14px 2px;font-size:15px;font-family:inherit;outline:none;text-align:left}
-  .cta button{font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--blue);padding:0 4px;transition:letter-spacing .25s}
-  .cta button:hover{letter-spacing:.32em}
-  .ctanote{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-top:16px;min-height:16px}
-
-  /* footer */
-  footer{border-top:1px solid var(--line);position:relative;overflow:hidden}
-  .foot{padding:44px 30px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:22px;position:relative;z-index:1}
-  .foot .social{display:flex;gap:26px}
-  .foot .social a{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);text-decoration:none;font-weight:600;transition:color .2s}
-  .foot .social a:hover{color:var(--blue)}
-  .foot .copy{color:var(--faint);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;width:100%;margin:0}
-
-  @media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
-    html{scroll-behavior:auto}
-    [data-reveal],[data-stagger]>*{opacity:1;transform:none;filter:none}
-  }
 </style>
 </head>
 <body>
-
 <div id="intro" aria-hidden="true">
   <div class="roll"><span id="rollWord">mood</span></div>
   <div class="word">mood.</div>
 </div>
 <div id="prog"></div>
 
-<!-- ============ NAV ============ -->
 <header id="hdr">
   <div class="wrap">
     <nav>
-      <a href="#top" class="brand">
-        <span class="word">mood<span class="num">.</span></span>
-        <span class="kj" id="navKj">気分</span>
-      </a>
+      <a href="#top" class="brand"><span class="word">mood<span class="num">.</span></span><span class="kj" id="navKj">気分</span></a>
       <div class="navlinks">
         <a href="#piece">The Piece</a>
         <a href="#collection">Collection</a>
         <a href="#about">About</a>
+        <a href="#size-guide">Size Guide</a>
+        <a href="#" class="cartlink" id="cartLink" aria-label="Shopping Cart">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg>
+          <span class="cartbadge" id="cartCount">0</span>
+        </a>
         <a href="#notify" class="joinbtn"><span>Join</span></a>
       </div>
     </nav>
   </div>
 </header>
 
-<!-- ============ HERO ============ -->
 <section class="hero" id="top">
   <div class="hero-l">
-    <div class="kicker">
-      <span class="micro num">001 — Drop 01</span>
-      <span class="rule"></span>
-    </div>
+    <div class="kicker"><span class="micro num">001 — Drop 01</span><span class="rule"></span></div>
     <h1 class="mood" aria-label="mood."><span class="ch" style="animation-delay:.65s">m</span><span class="ch" style="animation-delay:.73s">o</span><span class="ch" style="animation-delay:.81s">o</span><span class="ch" style="animation-delay:.89s">d</span><span class="ch num" style="animation-delay:.97s">.</span></h1>
     <p class="tag">Clothing for every mood. Made by teens, for teens — <span class="num">mood</span>.</p>
-    <form class="heroform" id="heroForm">
+    <form class="emailform" id="heroForm">
       <input type="email" id="heroEmail" placeholder="Email address" required>
       <button type="submit">Join →</button>
     </form>
@@ -254,40 +307,27 @@
   </div>
   <div class="hero-r" id="kanjiPanel">
     <span class="micro fig">Fig.01 — 気分 = mood</span>
-    <div class="kanji-big" id="kanjiBig" role="img" aria-label="気分 — the mood logo">
-      <span>気</span>
-      <span>分</span>
-    </div>
+    <div class="kanji-big" id="kanjiBig" aria-label="気分 — the mood logo"><span>気</span><span>分</span></div>
   </div>
 </section>
 
-<!-- ============ TICKER ============ -->
-<div class="ticker" aria-hidden="true">
-  <div class="tk">
-    <div><span>Drop 01</span><span class="kj">気分</span><span>Made by teens</span><span class="kj">気分</span><span>Wear your mood</span><span class="kj">気分</span><span>気分 = mood</span><span class="kj">気分</span></div>
-    <div><span>Drop 01</span><span class="kj">気分</span><span>Made by teens</span><span class="kj">気分</span><span>Wear your mood</span><span class="kj">気分</span><span>気分 = mood</span><span class="kj">気分</span></div>
-  </div>
-</div>
+<div class="ticker" aria-hidden="true"><div class="tk"><div><span>Drop 01</span><span class="kj">気分</span><span>Made by teens</span><span class="kj">気分</span><span>Wear your mood</span><span class="kj">気分</span><span>気分 = mood</span><span class="kj">気分</span></div><div><span>Drop 01</span><span class="kj">気分</span><span>Made by teens</span><span class="kj">気分</span><span>Wear your mood</span><span class="kj">気分</span><span>気分 = mood</span><span class="kj">気分</span></div></div></div>
 
-<!-- ============ THE PIECE ============ -->
 <section id="piece">
   <div class="wrap sect" data-reveal>
     <div class="shead">
-      <div>
-        <span class="micro num">002 — The Piece</span>
-        <h2><span class="clip">The OG</span></h2>
-      </div>
-      <p>Heavyweight snow-washed fleece, distressed by hand. Fang on the chest, mood down the back. Our debut piece — photographed front and back.</p>
+      <div><span class="micro num">002 — The Piece</span><h2><span class="clip">The OG</span></h2></div>
+      <p>Heavyweight washed fleece. Fang on the chest, mood down the back. Our debut piece — photographed front and back.</p>
     </div>
     <div class="duo">
-      <span class="chip micro">Fig.02 — Front &amp; Back</span>
+      <span class="chip micro">Fig.02 — Front & Back</span>
       <div class="duo-grid">
-        <img src="assets/og-front.jpg" alt="snow washed hoodie — front" style="object-position:50% 25%">
-        <img src="assets/og-back.jpg" alt="snow washed hoodie — back" style="object-position:70% 35%">
+        <img src="assets/og-black-front.png" alt="The OG hoodie front">
+        <img src="assets/og-black-back.png" alt="The OG hoodie back">
       </div>
     </div>
-    <div class="specs" data-stagger>
-      <div class="spec"><div class="k">Fabric</div><div class="v">400gsm brushed fleece</div></div>
+    <div class="specs">
+      <div class="spec"><div class="k">Fabric</div><div class="v">Heavyweight fleece</div></div>
       <div class="spec"><div class="k">Graphic</div><div class="v">Fang chest · mood back</div></div>
       <div class="spec"><div class="k">Fit</div><div class="v">Boxy · oversized</div></div>
       <div class="spec"><div class="k">Made by</div><div class="v">Two teenagers</div></div>
@@ -295,123 +335,82 @@
   </div>
 </section>
 
-<!-- ============ COLLECTION ============ -->
 <section id="collection" style="border-top:1px solid var(--line)">
   <div class="wrap sect" data-reveal>
     <div class="shead">
-      <div>
-        <span class="micro num">003 — Collection</span>
-        <h2><span class="clip">The<br>Collection</span></h2>
-      </div>
-      <p>Every mood piece in one place — same fang, same mood, different blanks. More dropping soon.</p>
+      <div><span class="micro num">003 — Collection</span><h2><span class="clip">The<br>Collection</span></h2></div>
+      <p>Choose your mood, then choose your color. OG and Traditional come in Black, Grey, Coffee, and Maroon.</p>
     </div>
+    <span class="collection-note">Hover the rotate key to spin · choose Black, Grey, Coffee, or Maroon</span>
     <div class="cards">
 
+      <article class="card color-product" data-product="og" data-current-color="Black">
+        <div class="ph">
+          <span class="figchip">Fig.04</span><span class="stock">In stock</span>
+          <img class="main" data-flip src="assets/og-black-front.png" data-front="assets/og-black-front.png" data-back="assets/og-black-back.png" alt="The OG hoodie">
+          <button class="rotate-key" type="button" aria-label="Spin The OG hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button>
+        </div>
+        <div class="prow"><div><div class="pname">The OG</div><div class="psub">Distressed panel · fang / mood</div></div><div class="price">$75.00</div></div>
+        <div class="color-label">Color: <span data-color-name>Black</span></div>
+        <div class="swatches colorways">
+          <span class="sw color-swatch active" role="button" tabindex="0" title="Black" data-color="Black" data-front="assets/og-black-front.png" data-back="assets/og-black-back.png" style="background:#050505"></span>
+          <span class="sw color-swatch" role="button" tabindex="0" title="Grey" data-color="Grey" data-front="assets/og-grey-front.png" data-back="assets/og-grey-back.png" style="background:#cfd0d2"></span>
+          <span class="sw color-swatch" role="button" tabindex="0" title="Coffee" data-color="Coffee" data-front="assets/og-coffee-front.png" data-back="assets/og-coffee-back.png" style="background:#45413b"></span>
+          <span class="sw color-swatch" role="button" tabindex="0" title="Maroon" data-color="Maroon" data-front="assets/og-maroon-front.png" data-back="assets/og-maroon-back.png" style="background:#5a263e"></span>
+          <span class="swlabel">Black · Grey · Coffee · Maroon</span>
+        </div>
+        <details><summary>Description<span>+</span></summary><p>The OG sweater is the first design we made, and also the simplest. Choose the color that matches your mood.</p></details>
+        <button class="buy add-cart" type="button" data-name="The OG" data-price="75" data-img="assets/og-black-front.png" data-color="Black"><span>Add to Cart</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg></button>
+      </article>
+
+      <article class="card color-product" data-product="traditional" data-current-color="Black">
+        <div class="ph">
+          <span class="figchip">Fig.05</span><span class="stock">New</span>
+          <img class="main" data-flip src="assets/traditional-black-front.png" data-front="assets/traditional-black-front.png" data-back="assets/traditional-black-back.png" alt="Traditional Hoodie">
+          <button class="rotate-key" type="button" aria-label="Spin Traditional hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button>
+        </div>
+        <div class="prow"><div><div class="pname">Traditional Hoodie</div><div class="psub">Washed fleece · mood mark</div></div><div class="price">$75.00</div></div>
+        <div class="color-label">Color: <span data-color-name>Black</span></div>
+        <div class="swatches colorways">
+          <span class="sw color-swatch active" role="button" tabindex="0" title="Black" data-color="Black" data-front="assets/traditional-black-front.png" data-back="assets/traditional-black-back.png" style="background:#050505"></span>
+          <span class="sw color-swatch" role="button" tabindex="0" title="Grey" data-color="Grey" data-front="assets/traditional-grey-front.png" data-back="assets/traditional-grey-back.png" style="background:#cfd0d2"></span>
+          <span class="sw color-swatch" role="button" tabindex="0" title="Coffee" data-color="Coffee" data-front="assets/traditional-coffee-front.png" data-back="assets/traditional-coffee-back.png" style="background:#45413b"></span>
+          <span class="sw color-swatch" role="button" tabindex="0" title="Maroon" data-color="Maroon" data-front="assets/traditional-maroon-front.png" data-back="assets/traditional-maroon-back.png" style="background:#5a263e"></span>
+          <span class="swlabel">Black · Grey · Coffee · Maroon</span>
+        </div>
+        <details><summary>Description<span>+</span></summary><p>The Traditional hoodie carries the mood mark in a cleaner, heritage-inspired format. Pick your wash and wear it daily.</p></details>
+        <button class="buy add-cart" type="button" data-name="Traditional Hoodie" data-price="75" data-img="assets/traditional-black-front.png" data-color="Black"><span>Add to Cart</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg></button>
+      </article>
+
+
       <article class="card">
-        <div class="ph" style="background:#f3f1ec">
-          <span class="figchip">Fig.04</span>
-          <span class="stock">In stock</span>
-          <img class="main" data-wash-img data-flip src="assets/og-front.jpg" alt="The OG — snow washed" role="button" tabindex="0" style="object-position:50% 24%">
-          <img data-wash-src="grey" src="assets/og-grey.jpg" alt="" aria-hidden="true" style="display:none">
-          <img data-wash-src="plum" src="assets/og-plum.jpg" alt="" aria-hidden="true" style="display:none">
-          <img data-wash-src="maroon" src="assets/og-maroon.jpg" alt="" aria-hidden="true" style="display:none">
-          <img data-flip-src data-flip-pos="68% 30%" src="assets/og-back.jpg" alt="" aria-hidden="true" style="display:none">
-          <span class="flipchip" data-flip-chip>Tap for back</span>
+        <div class="ph">
+          <span class="figchip">Fig.06</span><span class="stock">In stock</span>
+          <img class="main" data-flip src="assets/snooze-front.png" data-front="assets/snooze-front.png" data-back="assets/snooze-back.png" alt="Snooze Hoodie">
+          <button class="rotate-key" type="button" aria-label="Spin Snooze hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button>
         </div>
-        <div class="prow">
-          <div><div class="pname">The OG</div><div class="psub">Distressed panel · fang / mood</div></div>
-          <div class="price">$29.99</div>
-        </div>
-        <div class="swatches">
-          <span class="sw" data-wash="black" role="button" tabindex="0" title="Washed Black" style="background:#2c2b2d;box-shadow:0 0 0 2px var(--blue)"></span>
-          <span class="sw" data-wash="grey" role="button" tabindex="0" title="Washed Grey" style="background:#ccc8cc"></span>
-          <span class="sw" data-wash="plum" role="button" tabindex="0" title="Plum" style="background:#4a3843"></span>
-          <span class="sw" data-wash="maroon" role="button" tabindex="0" title="Maroon" style="background:#5d3040"></span>
-          <span class="swlabel" data-wash-label>Washed Black · S–2XL</span>
-        </div>
-        <div class="frontpick" data-fp>
-          <span class="fp-label">Front</span>
-          <div class="fp-opts">
-            <button type="button" class="fp-btn on" data-fp-val="fang">Fang</button>
-            <button type="button" class="fp-btn" data-fp-val="mood">mood.</button>
-          </div>
-        </div>
-        <p class="fp-note" data-fp-note>photos show the fang front · confirm your pick at checkout</p>
-        <details>
-          <summary>Description<span aria-hidden="true">+</span></summary>
-          <p>The OG sweater is the first design that was made, and also the simplest. On the back is the Japanese words for our brand, mood.</p>
-        </details>
-        <a class="buy" href="https://mood-22112180.myshopify.com" target="_blank" rel="noopener"><span>Buy Now</span><i>→</i></a>
+        <div class="prow"><div><div class="pname">Snooze Hoodie</div><div class="psub">Sunfade oversized · fang / snooze</div></div><div class="price">$70.99</div></div>
+        <div class="swatches"><span class="sw" style="background:linear-gradient(180deg,#a9c3d6 20%,#41708f 80%)"></span><span class="swlabel">Sunfade Blue · S–2XL</span></div>
+        <details><summary>Description<span>+</span></summary><p>The Snooze hoodie represents the lazy feeling when you walk into school. Wake up feeling ugh? Wear Snooze.</p></details>
+        <button class="buy add-cart" type="button" data-name="Snooze Hoodie" data-price="70.99" data-img="assets/snooze-front.png" data-color="Sunfade Blue"><span>Add to Cart</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg></button>
       </article>
 
       <article class="card">
-        <div class="ph" style="background:#eef2f5">
-          <span class="figchip">Fig.05</span>
-          <span class="stock">In stock</span>
-          <img class="main" data-flip src="assets/snooze-front.jpg" alt="Snooze hoodie — sunfade blue" role="button" tabindex="0">
-          <img data-flip-src src="assets/snooze-back.jpg" alt="" aria-hidden="true" style="display:none">
-          <img data-front-mood src="assets/snooze-mood-front.jpg" alt="" aria-hidden="true" style="display:none">
-          <span class="flipchip" data-flip-chip>Tap for back</span>
+        <div class="ph">
+          <span class="figchip">Fig.07</span><span class="stock">In stock</span>
+          <img class="main" data-flip src="assets/lockedin-front.png" data-front="assets/lockedin-front.png" data-back="assets/lockedin-back.png" alt="Locked In Hoodie">
+          <button class="rotate-key" type="button" aria-label="Spin Locked In hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button>
         </div>
-        <div class="prow">
-          <div><div class="pname">Snooze Hoodie</div><div class="psub">Sunfade oversized · fang / snooze</div></div>
-          <div class="price">$24.99</div>
-        </div>
-        <div class="swatches">
-          <span class="sw" title="Sunfade Blue" style="background:linear-gradient(180deg,#a9c3d6 20%,#41708f 80%);cursor:default"></span>
-          <span class="swlabel">Sunfade Blue · S–2XL</span>
-        </div>
-        <div class="frontpick" data-fp>
-          <span class="fp-label">Front</span>
-          <div class="fp-opts">
-            <button type="button" class="fp-btn on" data-fp-val="fang">Fang</button>
-            <button type="button" class="fp-btn" data-fp-val="mood">mood.</button>
-          </div>
-        </div>
-        <p class="fp-note" data-fp-note>photos show the fang front · confirm your pick at checkout</p>
-        <details>
-          <summary>Description<span aria-hidden="true">+</span></summary>
-          <p>The Snooze sweater represents the lazy feeling that you get when you walk into school. When you wake up and feel ugh, wear Snooze! On the back is the name in the sweater, written in Japanese: Snooze. On the sleeve, there are even z's to represent your laziness!</p>
-        </details>
-        <a class="buy" href="https://mood-22112180.myshopify.com" target="_blank" rel="noopener"><span>Buy Now</span><i>→</i></a>
-      </article>
-
-      <article class="card">
-        <div class="ph" style="background:#f3f1ec">
-          <span class="figchip">Fig.06</span>
-          <span class="stock">In stock</span>
-          <img class="main" data-flip src="assets/lockedin-front.jpg" alt="Locked In hoodie — washed black, front" role="button" tabindex="0">
-          <img data-flip-src src="assets/lockedin-back.jpg" alt="" aria-hidden="true" style="display:none">
-          <span class="flipchip" data-flip-chip>Tap for back</span>
-        </div>
-        <div class="prow">
-          <div><div class="pname">Locked In Hoodie</div><div class="psub">Washed heavyweight · fang / 集中</div></div>
-          <div class="price">$29.99</div>
-        </div>
-        <div class="swatches">
-          <span class="sw" title="Washed Black" style="background:#3a322e;box-shadow:0 0 0 2px var(--blue);cursor:default"></span>
-          <span class="swlabel">Washed Black · S–2XL</span>
-        </div>
-        <div class="frontpick" data-fp>
-          <span class="fp-label">Front</span>
-          <div class="fp-opts">
-            <button type="button" class="fp-btn on" data-fp-val="fang">Fang</button>
-            <button type="button" class="fp-btn" data-fp-val="mood">mood.</button>
-          </div>
-        </div>
-        <p class="fp-note" data-fp-note>photos show the fang front · confirm your pick at checkout</p>
-        <details>
-          <summary>Description<span aria-hidden="true">+</span></summary>
-          <p>The Locked In hoodie represents a focused mood. Whether you're studying for a test, or playing basketball, wearing the hoodie lets people know that you're locked in. On the sleeves, there is a lock and key to literally represent being locked in, and on the back is Japanese for concentration or focus.</p>
-        </details>
-        <a class="buy" href="https://mood-22112180.myshopify.com" target="_blank" rel="noopener"><span>Buy Now</span><i>→</i></a>
+        <div class="prow"><div><div class="pname">Locked In Hoodie</div><div class="psub">Washed heavyweight · fang / 集中</div></div><div class="price">$74.00</div></div>
+        <div class="swatches"><span class="sw" style="background:#3a322e;box-shadow:0 0 0 2px var(--blue)"></span><span class="swlabel">Washed Black · S–2XL</span></div>
+        <details><summary>Description<span>+</span></summary><p>The Locked In hoodie represents a focused mood — studying, hooping, or getting work done.</p></details>
+        <button class="buy add-cart" type="button" data-name="Locked In Hoodie" data-price="74" data-img="assets/lockedin-front.png" data-color="Washed Black"><span>Add to Cart</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg></button>
       </article>
 
     </div>
   </div>
 </section>
 
-<!-- ============ MANIFESTO ============ -->
 <section id="about" class="mani">
   <div class="wm" id="maniWm" aria-hidden="true">気分</div>
   <div class="wrap sect" data-reveal>
@@ -420,64 +419,67 @@
   </div>
 </section>
 
-<!-- ============ DROP STATUS ============ -->
 <section id="drop">
   <div class="wrap sect" data-reveal>
     <div class="dropgrid">
       <div>
         <span class="micro num">005 — First Drop</span>
         <h2 style="font-weight:900;letter-spacing:-.03em;text-transform:uppercase;font-size:clamp(44px,6vw,80px);line-height:.92;margin:18px 0 0">Drop 01</h2>
-        <p style="color:var(--mut);margin:22px 0 0;max-width:420px;font-size:15px;text-wrap:pretty">Our debut pieces — designed by us, photographed by us, worn by us first. The shop is open.</p>
-        <div class="live">
-          <span class="dot"></span>
-          <span class="micro" style="letter-spacing:.2em">Live now — shop open</span>
-        </div>
-        <div style="margin-top:26px">
-          <a class="buy" style="display:inline-flex" href="https://mood-22112180.myshopify.com" target="_blank" rel="noopener"><span>Shop Drop 01</span><i>→</i></a>
-        </div>
+        <p style="color:var(--mut);margin:22px 0 0;max-width:420px;font-size:15px">Our debut pieces — designed by us, photographed by us, worn by us first. The shop is open.</p>
+        <div class="live"><span class="dot"></span><span class="micro" style="letter-spacing:.2em">Live now — shop open</span></div>
       </div>
-      <div class="photo-frame">
-        <span class="figchip micro">Fig.03 — Back</span>
-        <img src="assets/og-back.jpg" alt="snow washed hoodie — back">
-      </div>
+      <div class="photo-frame"><img src="assets/og-grey-back.png" alt="The OG hoodie back"></div>
     </div>
   </div>
 </section>
 
-<!-- ============ CTA ============ -->
+<section id="size-guide" style="border-top:1px solid var(--line)">
+  <div class="wrap sect" data-reveal>
+    <div class="shead">
+      <div><span class="micro num">006 — Size Guide</span><h2><span class="clip">Size Guide</span></h2></div>
+      <p>Oversized hoodie fit. Measurements are approximate and may vary slightly by wash.</p>
+    </div>
+    <div class="size-table">
+      <table>
+        <tr><th>Size</th><th>Chest</th><th>Length</th><th>Sleeve</th></tr>
+        <tr><td>S</td><td>20"</td><td>27"</td><td>23"</td></tr>
+        <tr><td>M</td><td>22"</td><td>28"</td><td>24"</td></tr>
+        <tr><td>L</td><td>24"</td><td>29"</td><td>25"</td></tr>
+        <tr><td>XL</td><td>26"</td><td>30"</td><td>26"</td></tr>
+        <tr><td>2XL</td><td>28"</td><td>31"</td><td>27"</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
 <section id="notify" class="cta">
   <div class="wrap sect" data-reveal>
     <span class="micro num" style="font-size:13px">mood</span>
     <h2>Don't miss<br>the drop</h2>
-    <p style="color:var(--mut);margin:22px auto 0;max-width:400px;font-size:15px;text-wrap:pretty">New moods drop when they're ready. Get the notice the moment the next one is live.</p>
-    <form id="ctaForm">
+    <p style="color:var(--mut);margin:22px auto 0;max-width:400px;font-size:15px">New moods drop when they're ready. Get the notice the moment the next one is live.</p>
+    <form class="emailform" id="ctaForm" style="margin-left:auto;margin-right:auto">
       <input type="email" id="ctaEmail" placeholder="Email address" required>
       <button type="submit">Join →</button>
     </form>
-    <p class="ctanote" id="ctaNote"></p>
+    <p class="formnote num" id="ctaNote"></p>
   </div>
 </section>
 
-<!-- ============ GHOST TICKER ============ -->
-<div class="ticker top" aria-hidden="true">
-  <div class="tk rev ghost">
-    <div><span>mood</span><span>気分</span><span>mood</span><span>気分</span><span>mood</span><span>気分</span><span>mood</span><span>気分</span></div>
-    <div><span>mood</span><span>気分</span><span>mood</span><span>気分</span><span>mood</span><span>気分</span><span>mood</span><span>気分</span></div>
+<div class="ticker top" aria-hidden="true"><div class="tk rev ghost"><div><span>mood</span><span>気分</span><span>mood</span><span>気分</span><span>mood</span><span>気分</span></div><div><span>mood</span><span>気分</span><span>mood</span><span>気分</span><span>mood</span><span>気分</span></div></div></div>
+
+<div class="cart-drawer" id="cartDrawer" aria-hidden="true">
+  <div class="cart-head"><h3>Your Cart</h3><button class="cart-close" id="cartClose" type="button" aria-label="Close cart">×</button></div>
+  <div class="cart-items" id="cartItems"><p class="cart-empty">Your cart is empty.</p></div>
+  <div class="cart-foot">
+    <div class="cart-total"><span>Total</span><span id="cartTotal">$0.00</span></div>
+    <a class="checkout-btn" href="https://mood-22112180.myshopify.com" target="_blank" rel="noopener">Checkout</a>
   </div>
 </div>
 
-<!-- ============ FOOTER ============ -->
 <footer>
   <div class="wrap foot">
-    <a href="#top" class="brand">
-      <span class="word" style="font-size:21px">mood<span class="num">.</span></span>
-      <span class="kj" style="font-size:13px">気分</span>
-    </a>
-    <div class="social">
-      <a href="#" aria-label="Instagram">Instagram</a>
-      <a href="#" aria-label="TikTok">TikTok</a>
-      <a href="mailto:hello@example.com">Email</a>
-    </div>
+    <a href="#top" class="brand"><span class="word" style="font-size:21px">mood<span class="num">.</span></span><span class="kj" style="font-size:13px">気分</span></a>
+    <div class="social"><a href="#" aria-label="Instagram">Instagram</a><a href="#" aria-label="TikTok">TikTok</a><a href="mailto:hello@example.com">Email</a></div>
     <p class="copy">© <span id="yr"></span> mood — made by teens, for teens</p>
   </div>
 </footer>
@@ -486,228 +488,184 @@
 (function(){
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ---------- intro: "mood" rolodex through languages, landing on 気分 ----------
   var intro = document.getElementById('intro');
-  function killIntro(){ if(intro){ intro.classList.add('done'); setTimeout(function(){ if(intro){ intro.remove(); intro=null; } }, 900); } }
-  document.addEventListener('click', killIntro, {once:true});
-
-  var seenIntro = false;
-  try { seenIntro = sessionStorage.getItem('mood_intro') === '1'; sessionStorage.setItem('mood_intro','1'); } catch(_){}
-
   var rollEl = document.getElementById('rollWord');
-  // mood in: English → Korean → Chinese → Spanish → Hindi → French → Arabic → Portuguese → Japanese (the logo)
-  // note: 心情 (xīnqíng) is the everyday CHINESE word for mood; 気分 is JAPANESE (気 is a Japan-only glyph)
   var SEQ = ['mood','기분','心情','ánimo','मूड','humeur','مزاج','humor','気分'];
-
-  if (reduceMotion || seenIntro || !rollEl) {
-    // quick version: straight to the logo, no rotation
-    if (rollEl) rollEl.textContent = '気分';
-    setTimeout(killIntro, reduceMotion ? 0 : 500);
-  } else {
-    var wi = 0;
-    var step = function(){
-      if (!intro) return;                    // user skipped
+  function killIntro(){ if(intro){ intro.classList.add('done'); setTimeout(function(){ if(intro) intro.remove(); intro=null; },750); } }
+  document.addEventListener('click', killIntro, {once:true});
+  var seenIntro=false;
+  try{seenIntro=sessionStorage.getItem('mood_intro')==='1';sessionStorage.setItem('mood_intro','1')}catch(_){}
+  if(reduceMotion||seenIntro||!rollEl){ if(rollEl) rollEl.textContent='気分'; setTimeout(killIntro, reduceMotion?0:450); }
+  else{
+    var wi=0;
+    function step(){
+      if(!intro) return;
       wi++;
-      if (wi >= SEQ.length) { setTimeout(killIntro, 620); return; }  // hold on 気分, then reveal
-      rollEl.classList.add('out');           // flip current word out (up)
+      if(wi>=SEQ.length){setTimeout(killIntro,620);return}
+      rollEl.classList.add('out');
       setTimeout(function(){
-        if (!intro) return;
-        rollEl.textContent = SEQ[wi];
-        rollEl.classList.remove('out');
-        rollEl.classList.add('pre');         // park next word below
-        void rollEl.offsetWidth;             // force reflow so the transition runs
-        rollEl.classList.remove('pre');      // flip it in
-        var last = (wi === SEQ.length - 1);
-        setTimeout(step, last ? 10 : 150);
-      }, 120);
-    };
-    setTimeout(step, 420);                   // let "mood" register first
-  }
-
-  // ---------- nav logo: slow language cycle (dwells on 気分, the home base) ----------
-  var navKj = document.getElementById('navKj');
-  if (navKj && !reduceMotion) {
-    var NAVSEQ = ['気分','기분','心情','ánimo','मूड','humeur','مزاج','humor']; // no 'mood' — the wordmark already says it
-    var ni = 0;
-    var navStep = function(){
-      ni = (ni + 1) % NAVSEQ.length;
-      navKj.classList.add('out');
-      setTimeout(function(){
-        navKj.textContent = NAVSEQ[ni];
-        navKj.classList.remove('out');
-        navKj.classList.add('pre');
-        void navKj.offsetWidth;
-        navKj.classList.remove('pre');
-      }, 160);
-      // dwell longest on 気分 (position 0), shorter on the rest
-      setTimeout(navStep, ni === 0 ? 5200 : 2400);
-    };
-    setTimeout(navStep, 5200);
-  }
-
-  // ---------- scroll progress + header ----------
-  var prog = document.getElementById('prog'), hdr = document.getElementById('hdr');
-  function onScroll(){
-    var h = document.documentElement;
-    var max = h.scrollHeight - h.clientHeight;
-    prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
-    hdr.classList.toggle('on', window.scrollY > 20);
-  }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
-
-  // ---------- reveal on scroll ----------
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {threshold:.12});
-  document.querySelectorAll('[data-reveal],[data-stagger]').forEach(function(el){ io.observe(el); });
-
-  // ---------- kanji parallax ----------
-  var panel = document.getElementById('kanjiPanel'), kanji = document.getElementById('kanjiBig');
-  if(panel && kanji && !reduceMotion){
-    panel.addEventListener('mousemove', function(e){
-      var r = panel.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width - .5;
-      var y = (e.clientY - r.top) / r.height - .5;
-      kanji.style.transform = 'translate(' + (x*22) + 'px,' + (y*18) + 'px)';
-      kanji.style.animation = 'none';
-    });
-    panel.addEventListener('mouseleave', function(){
-      kanji.style.transform = '';
-      kanji.style.animation = '';
-    });
-  }
-
-  // ---------- manifesto watermark parallax ----------
-  var wm = document.getElementById('maniWm');
-  if(wm){
-    wm.style.transform = 'translateY(-50%)';
-    if(!reduceMotion){
-      window.addEventListener('scroll', function(){
-        var r = wm.parentElement.getBoundingClientRect();
-        var p = (r.top + r.height/2 - window.innerHeight/2) / window.innerHeight;
-        wm.style.transform = 'translateY(' + (-50 + p * 18) + '%)';
-      }, {passive:true});
+        if(!intro) return;
+        rollEl.textContent=SEQ[wi];
+        rollEl.classList.remove('out'); rollEl.classList.add('pre');
+        void rollEl.offsetWidth; rollEl.classList.remove('pre');
+        setTimeout(step, wi===SEQ.length-1?10:150);
+      },120);
     }
+    setTimeout(step,420);
   }
 
-  // ---------- wash colorway switcher (The OG) ----------
-  var washImg = document.querySelector('[data-wash-img]');
-  if(washImg){
-    var washMap = { black: washImg.getAttribute('src') };
-    var washNames = { black:'Washed Black', grey:'Washed Grey', plum:'Plum', maroon:'Maroon' };
-    document.querySelectorAll('[data-wash-src]').forEach(function(h){ washMap[h.getAttribute('data-wash-src')] = h.getAttribute('src'); });
-    var washSw = Array.prototype.slice.call(document.querySelectorAll('[data-wash]'));
-    var washLabel = document.querySelector('[data-wash-label]');
-    var pickWash = function(sw){
-      var c = sw.getAttribute('data-wash');
-      if(washMap[c]){
-        washImg.style.opacity = '0';
-        var pre = new Image();
-        var apply = function(){ washImg.src = washMap[c]; washImg.style.opacity = '1'; };
-        pre.onload = apply; pre.onerror = apply;
-        pre.src = washMap[c];
-      }
-      washSw.forEach(function(s){ s.style.boxShadow = (s === sw) ? '0 0 0 2px #3b6dff' : 'none'; });
-      if(washLabel) washLabel.textContent = washNames[c] + ' · S–2XL';
-      washImg.dataset.flipped = '';
-      if(washImg.dataset.flipBasePos) washImg.style.objectPosition = washImg.dataset.flipBasePos;
-      var flipChip = washImg.parentElement.querySelector('[data-flip-chip]');
-      if(flipChip) flipChip.textContent = 'Tap for back';
-    };
-    washSw.forEach(function(sw){
-      sw.addEventListener('click', function(){ pickWash(sw); });
-      sw.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pickWash(sw); } });
-    });
+  var navKj=document.getElementById('navKj');
+  if(navKj&&!reduceMotion){
+    var NAVSEQ=['気分','기분','心情','ánimo','मूड','humeur','مزاج','humor'];
+    var ni=0;
+    function navStep(){
+      ni=(ni+1)%NAVSEQ.length;
+      navKj.classList.add('out');
+      setTimeout(function(){navKj.textContent=NAVSEQ[ni];navKj.classList.remove('out');navKj.classList.add('pre');void navKj.offsetWidth;navKj.classList.remove('pre')},160);
+      setTimeout(navStep,ni===0?5200:2400);
+    }
+    setTimeout(navStep,5200);
   }
 
-  // ---------- front/back flip ----------
-  document.querySelectorAll('img[data-flip]').forEach(function(img){
-    var box = img.parentElement;
-    var backEl = box.querySelector('[data-flip-src]');
-    var chip = box.querySelector('[data-flip-chip]');
-    if(!backEl) return;
-    img.dataset.flipBasePos = getComputedStyle(img).objectPosition;
-    var fade = function(src){
-      img.style.opacity = '0';
-      var pre = new Image();
-      var apply = function(){ img.src = src; img.style.opacity = '1'; };
-      pre.onload = apply; pre.onerror = apply;
-      pre.src = src;
-    };
-    var toggle = function(){
-      if(img.dataset.flipped === '1'){
-        img.dataset.flipped = '';
-        img.style.objectPosition = img.dataset.flipBasePos || '';
-        fade(img.dataset.frontSrc);
-        if(chip) chip.textContent = 'Tap for back';
-      } else {
-        img.dataset.frontSrc = img.getAttribute('src');
-        img.dataset.flipped = '1';
-        if(backEl.dataset.flipPos) img.style.objectPosition = backEl.dataset.flipPos;
-        fade(backEl.getAttribute('src'));
-        if(chip) chip.textContent = 'Tap for front';
+  var prog=document.getElementById('prog'), hdr=document.getElementById('hdr');
+  function onScroll(){
+    var h=document.documentElement,max=h.scrollHeight-h.clientHeight;
+    if(prog) prog.style.width=(max>0?(h.scrollTop/max)*100:0)+'%';
+    if(hdr) hdr.classList.toggle('on',window.scrollY>20);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.remove('pixel-in');
+        void e.target.offsetWidth;
+        e.target.classList.add('pixel-in');
       }
-    };
-    img.addEventListener('click', toggle);
-    img.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
+    });
+  },{threshold:.12});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el)});
+
+  var panel=document.getElementById('kanjiPanel'),kanji=document.getElementById('kanjiBig');
+  if(panel&&kanji&&!reduceMotion){
+    panel.addEventListener('mousemove',function(e){
+      var r=panel.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      kanji.style.transform='translate('+(x*22)+'px,'+(y*18)+'px)'; kanji.style.animation='none';
+    });
+    panel.addEventListener('mouseleave',function(){kanji.style.transform='';kanji.style.animation=''});
+  }
+
+  document.querySelectorAll('.ph').forEach(function(box){
+    var img=box.querySelector('img[data-flip]'),key=box.querySelector('.rotate-key');
+    if(!img||!key) return;
+    var showingBack=false,busy=false;
+    function spin(){
+      if(busy) return; busy=true;
+      var nextBack=!showingBack;
+      var front=img.dataset.front, back=img.dataset.back;
+      img.classList.remove('spinning'); void img.offsetWidth; img.classList.add('spinning');
+      setTimeout(function(){img.src=nextBack?back:front; showingBack=nextBack;},245);
+      setTimeout(function(){img.classList.remove('spinning');busy=false},650);
+    }
+    key.addEventListener('mouseenter',spin);
+    key.addEventListener('click',function(e){e.preventDefault();spin()});
+    key.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();spin()}});
   });
 
-  // ---------- front-graphic picker (Fang vs mood. wordmark) ----------
-  document.querySelectorAll('[data-fp]').forEach(function(fp){
-    var card = fp.closest('article');
-    if(!card) return;
-    var buy = card.querySelector('a.buy');
-    var base = buy ? buy.getAttribute('href').split('?')[0] : null;
-    var note = card.querySelector('[data-fp-note]');
-    var mainImg = card.querySelector('img.main');
-    var moodEl = card.querySelector('[data-front-mood]');
-    if (mainImg && !mainImg.dataset.fangSrc) mainImg.dataset.fangSrc = mainImg.getAttribute('src');
-    fp.querySelectorAll('.fp-btn').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        fp.querySelectorAll('.fp-btn').forEach(function(b){ b.classList.remove('on'); });
-        btn.classList.add('on');
-        var v = btn.getAttribute('data-fp-val');
-        if(buy && base) buy.setAttribute('href', base + '?front=' + v);
-        if(note) note.textContent = (v === 'mood' ? 'mood. wordmark front selected' : 'fang front selected') + ' · confirm your pick at checkout';
-        // swap the product photo if this card has a mood-front image
-        if(mainImg && moodEl){
-          var targetSrc = (v === 'mood') ? moodEl.getAttribute('src') : mainImg.dataset.fangSrc;
-          if(mainImg.dataset.flipped === '1'){
-            mainImg.dataset.frontSrc = targetSrc;   // showing the back — new front appears when they flip back
-          } else {
-            var pre = new Image();
-            pre.onload = function(){ mainImg.style.opacity = '0'; setTimeout(function(){ mainImg.src = targetSrc; mainImg.style.opacity = '1'; }, 120); };
-            pre.onerror = function(){ /* image not uploaded yet — keep current photo */ };
-            pre.src = targetSrc;
-          }
-        }
-      });
+
+  // ---------- colorway switcher ----------
+  document.querySelectorAll('.color-product').forEach(function(card){
+    var img = card.querySelector('img.main');
+    var label = card.querySelector('[data-color-name]');
+    var addBtn = card.querySelector('.add-cart');
+    var showingBack = false;
+
+    function setColor(sw){
+      var color = sw.dataset.color;
+      var front = sw.dataset.front;
+      var back = sw.dataset.back;
+      card.dataset.currentColor = color;
+      card.querySelectorAll('.color-swatch').forEach(function(s){ s.classList.toggle('active', s === sw); });
+      if(label) label.textContent = color;
+      if(addBtn){
+        addBtn.dataset.color = color;
+        addBtn.dataset.img = front;
+      }
+      img.classList.remove('color-changing');
+      void img.offsetWidth;
+      img.classList.add('color-changing');
+      img.dataset.front = front;
+      img.dataset.back = back;
+      img.src = front;
+      showingBack = false;
+      setTimeout(function(){ img.classList.remove('color-changing'); }, 360);
+    }
+
+    card.querySelectorAll('.color-swatch').forEach(function(sw){
+      sw.addEventListener('click', function(){ setColor(sw); });
+      sw.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); setColor(sw); } });
     });
   });
 
-  // ---------- waitlist forms (saved locally for now) ----------
-  function hook(formId, inputId, noteId, msg){
-    var form = document.getElementById(formId);
-    if(!form) return;
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var input = document.getElementById(inputId);
-      var email = (input.value || '').trim();
-      if(!email) return;
-      try{
-        var list = JSON.parse(localStorage.getItem('mood_waitlist') || '[]');
-        if(list.indexOf(email) === -1){ list.push(email); localStorage.setItem('mood_waitlist', JSON.stringify(list)); }
-      }catch(_){}
-      input.value = '';
-      document.getElementById(noteId).textContent = msg;
+  var cart=[],cartLink=document.getElementById('cartLink'),cartCount=document.getElementById('cartCount'),cartDrawer=document.getElementById('cartDrawer'),cartClose=document.getElementById('cartClose'),cartItems=document.getElementById('cartItems'),cartTotal=document.getElementById('cartTotal');
+  function money(n){return '$'+n.toFixed(2)}
+  function openCart(){cartDrawer.classList.add('open');cartDrawer.setAttribute('aria-hidden','false')}
+  function closeCart(){cartDrawer.classList.remove('open');cartDrawer.setAttribute('aria-hidden','true')}
+  function updateCart(){
+    var count=cart.reduce(function(s,i){return s+i.qty},0),total=cart.reduce(function(s,i){return s+i.qty*i.price},0);
+    cartCount.textContent=count;cartCount.classList.toggle('on',count>0);cartTotal.textContent=money(total);
+    if(count===0){cartItems.innerHTML='<p class="cart-empty">Your cart is empty.</p>';return}
+    cartItems.innerHTML=cart.map(function(item,idx){
+      return '<div class="cart-item"><img src="'+item.img+'" alt=""><div><div class="ci-name">'+item.name+'</div><div class="ci-price">'+money(item.price)+'</div></div><div class="qty"><button type="button" data-dec="'+idx+'">−</button><span>'+item.qty+'</span><button type="button" data-inc="'+idx+'">+</button></div></div>'
+    }).join('');
+  }
+  function flyToCart(button){
+    var card=button.closest('.card'),img=card?card.querySelector('img.main'):null;if(!img||!cartLink)return;
+    var clone=img.cloneNode(true),from=img.getBoundingClientRect(),to=cartLink.getBoundingClientRect();
+    clone.className='fly-img';document.body.appendChild(clone);clone.style.left=from.left+'px';clone.style.top=from.top+'px';clone.style.transform='translate(0,0) scale(.75)';
+    requestAnimationFrame(function(){clone.style.transform='translate('+(to.left-from.left)+'px,'+(to.top-from.top)+'px) scale(.12)';clone.style.opacity='0'});
+    setTimeout(function(){clone.remove()},760);cartLink.classList.remove('bump');void cartLink.offsetWidth;cartLink.classList.add('bump');
+  }
+  document.querySelectorAll('.add-cart').forEach(function(button){
+    button.addEventListener('click',function(){
+      var item={name:button.dataset.name + (button.dataset.color ? ' — ' + button.dataset.color : ''),price:parseFloat(button.dataset.price),img:button.dataset.img,qty:1};
+      var existing=cart.find(function(i){return i.name===item.name}); if(existing) existing.qty++; else cart.push(item);
+      flyToCart(button);updateCart();setTimeout(openCart,380);
+    });
+  });
+  cartLink.addEventListener('click',function(e){e.preventDefault();openCart()});
+  cartClose.addEventListener('click',closeCart);
+  cartItems.addEventListener('click',function(e){
+    var inc=e.target.getAttribute('data-inc'),dec=e.target.getAttribute('data-dec');
+    if(inc!==null){cart[+inc].qty++;updateCart()}
+    if(dec!==null){cart[+dec].qty--;if(cart[+dec].qty<=0)cart.splice(+dec,1);updateCart()}
+  });
+  updateCart();
+
+  function hook(formId,inputId,noteId,msg){
+    var form=document.getElementById(formId);if(!form)return;
+    form.addEventListener('submit',function(e){
+      e.preventDefault();var input=document.getElementById(inputId),email=(input.value||'').trim();if(!email)return;
+      try{var list=JSON.parse(localStorage.getItem('mood_waitlist')||'[]');if(list.indexOf(email)===-1){list.push(email);localStorage.setItem('mood_waitlist',JSON.stringify(list))}}catch(_){}
+      input.value='';document.getElementById(noteId).textContent=msg;
     });
   }
   hook('heroForm','heroEmail','heroNote',"You're on the list ✓");
   hook('ctaForm','ctaEmail','ctaNote',"You're on the list ✓ — see you at the drop.");
-
-  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.getElementById('yr').textContent=new Date().getFullYear();
 })();
 </script>
+
+<script>
+window.addEventListener('error', function(){
+  document.querySelectorAll('[data-reveal]').forEach(function(el){
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    el.style.filter = 'none';
+    el.style.clipPath = 'none';
+  });
+});
+</script>
+
 </body>
 </html>
