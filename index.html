@@ -255,6 +255,17 @@ footer{border-top:1px solid var(--line);overflow:hidden}
   }
 }
 
+
+/* colorway selector */
+.color-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:800;margin-top:15px}
+.swatches.colorways{gap:12px;margin-top:10px}
+.sw.color-swatch{width:25px;height:25px;border-radius:50%;border:1px solid rgba(255,255,255,.32);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.sw.color-swatch:hover{transform:scale(1.16)}
+.sw.color-swatch.active{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue),0 0 18px rgba(59,109,255,.32)}
+.ph img.main.color-changing{animation:colorFade .32s ease}
+@keyframes colorFade{0%{opacity:.35;transform:scale(.985)}100%{opacity:1;transform:scale(1)}}
+@media(min-width:900px){#collection .cards{grid-template-columns:repeat(2,minmax(320px,1fr))}}
+
 </style>
 </head>
 <body>
