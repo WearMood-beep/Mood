@@ -146,6 +146,15 @@
   .sw{width:22px;height:22px;border-radius:50%;cursor:pointer;border:1px solid rgba(255,255,255,.25);transition:transform .2s}
   .sw:hover{transform:scale(1.18)}
   .swlabel{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-left:6px}
+  /* front-graphic picker */
+  .frontpick{display:flex;align-items:center;gap:10px;margin-top:16px}
+  .fp-label{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);font-weight:700}
+  .fp-opts{display:flex;border:1px solid var(--line)}
+  .fp-btn{font-family:inherit;background:transparent;border:none;color:var(--mut);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:8px 14px;cursor:pointer;transition:background .2s,color .2s}
+  .fp-btn+.fp-btn{border-left:1px solid var(--line)}
+  .fp-btn.on{background:var(--blue);color:var(--ink)}
+  .fp-btn:not(.on):hover{color:var(--ink)}
+  .fp-note{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-top:8px}
   details{margin-top:18px;border-top:1px solid rgba(255,255,255,.12)}
   summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0 0;cursor:pointer;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);font-weight:700;transition:color .2s}
   summary:hover{color:var(--blue)}
@@ -320,6 +329,14 @@
           <span class="sw" data-wash="maroon" role="button" tabindex="0" title="Maroon" style="background:#5d3040"></span>
           <span class="swlabel" data-wash-label>Washed Black · S–2XL</span>
         </div>
+        <div class="frontpick" data-fp>
+          <span class="fp-label">Front</span>
+          <div class="fp-opts">
+            <button type="button" class="fp-btn on" data-fp-val="fang">Fang</button>
+            <button type="button" class="fp-btn" data-fp-val="mood">mood.</button>
+          </div>
+        </div>
+        <p class="fp-note" data-fp-note>photos show the fang front · confirm your pick at checkout</p>
         <details>
           <summary>Description<span aria-hidden="true">+</span></summary>
           <p>The OG sweater is the first design that was made, and also the simplest. On the back is the Japanese words for our brand, mood.</p>
@@ -333,6 +350,7 @@
           <span class="stock">In stock</span>
           <img class="main" data-flip src="assets/snooze-front.jpg" alt="Snooze hoodie — sunfade blue" role="button" tabindex="0">
           <img data-flip-src src="assets/snooze-back.jpg" alt="" aria-hidden="true" style="display:none">
+          <img data-front-mood src="assets/snooze-mood-front.jpg" alt="" aria-hidden="true" style="display:none">
           <span class="flipchip" data-flip-chip>Tap for back</span>
         </div>
         <div class="prow">
@@ -343,6 +361,14 @@
           <span class="sw" title="Sunfade Blue" style="background:linear-gradient(180deg,#a9c3d6 20%,#41708f 80%);cursor:default"></span>
           <span class="swlabel">Sunfade Blue · S–2XL</span>
         </div>
+        <div class="frontpick" data-fp>
+          <span class="fp-label">Front</span>
+          <div class="fp-opts">
+            <button type="button" class="fp-btn on" data-fp-val="fang">Fang</button>
+            <button type="button" class="fp-btn" data-fp-val="mood">mood.</button>
+          </div>
+        </div>
+        <p class="fp-note" data-fp-note>photos show the fang front · confirm your pick at checkout</p>
         <details>
           <summary>Description<span aria-hidden="true">+</span></summary>
           <p>The Snooze sweater represents the lazy feeling that you get when you walk into school. When you wake up and feel ugh, wear Snooze! On the back is the name in the sweater, written in Japanese: Snooze. On the sleeve, there are even z's to represent your laziness!</p>
@@ -366,6 +392,14 @@
           <span class="sw" title="Washed Black" style="background:#3a322e;box-shadow:0 0 0 2px var(--blue);cursor:default"></span>
           <span class="swlabel">Washed Black · S–2XL</span>
         </div>
+        <div class="frontpick" data-fp>
+          <span class="fp-label">Front</span>
+          <div class="fp-opts">
+            <button type="button" class="fp-btn on" data-fp-val="fang">Fang</button>
+            <button type="button" class="fp-btn" data-fp-val="mood">mood.</button>
+          </div>
+        </div>
+        <p class="fp-note" data-fp-note>photos show the fang front · confirm your pick at checkout</p>
         <details>
           <summary>Description<span aria-hidden="true">+</span></summary>
           <p>The Locked In hoodie represents a focused mood. Whether you're studying for a test, or playing basketball, wearing the hoodie lets people know that you're locked in. On the sleeves, there is a lock and key to literally represent being locked in, and on the back is Japanese for concentration or focus.</p>
@@ -617,6 +651,39 @@
     };
     img.addEventListener('click', toggle);
     img.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
+  });
+
+  // ---------- front-graphic picker (Fang vs mood. wordmark) ----------
+  document.querySelectorAll('[data-fp]').forEach(function(fp){
+    var card = fp.closest('article');
+    if(!card) return;
+    var buy = card.querySelector('a.buy');
+    var base = buy ? buy.getAttribute('href').split('?')[0] : null;
+    var note = card.querySelector('[data-fp-note]');
+    var mainImg = card.querySelector('img.main');
+    var moodEl = card.querySelector('[data-front-mood]');
+    if (mainImg && !mainImg.dataset.fangSrc) mainImg.dataset.fangSrc = mainImg.getAttribute('src');
+    fp.querySelectorAll('.fp-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        fp.querySelectorAll('.fp-btn').forEach(function(b){ b.classList.remove('on'); });
+        btn.classList.add('on');
+        var v = btn.getAttribute('data-fp-val');
+        if(buy && base) buy.setAttribute('href', base + '?front=' + v);
+        if(note) note.textContent = (v === 'mood' ? 'mood. wordmark front selected' : 'fang front selected') + ' · confirm your pick at checkout';
+        // swap the product photo if this card has a mood-front image
+        if(mainImg && moodEl){
+          var targetSrc = (v === 'mood') ? moodEl.getAttribute('src') : mainImg.dataset.fangSrc;
+          if(mainImg.dataset.flipped === '1'){
+            mainImg.dataset.frontSrc = targetSrc;   // showing the back — new front appears when they flip back
+          } else {
+            var pre = new Image();
+            pre.onload = function(){ mainImg.style.opacity = '0'; setTimeout(function(){ mainImg.src = targetSrc; mainImg.style.opacity = '1'; }, 120); };
+            pre.onerror = function(){ /* image not uploaded yet — keep current photo */ };
+            pre.src = targetSrc;
+          }
+        }
+      });
+    });
   });
 
   // ---------- waitlist forms (saved locally for now) ----------
