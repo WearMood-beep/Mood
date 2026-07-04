@@ -270,6 +270,33 @@ footer{border-top:1px solid var(--line);overflow:hidden}
   transform:scale(.985);
 }
 
+
+/* centered OG title overlay */
+.og-title-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1;
+  pointer-events:none;
+  user-select:none;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(42px,7vw,96px);
+  font-weight:900;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(242,239,232,.18);
+  text-align:center;
+}
+#piece .duo-grid{
+  position:relative;
+}
+#piece .duo-grid img{
+  position:relative;
+  z-index:2;
+}
+
 </style>
 </head>
 <body>
@@ -326,8 +353,8 @@ footer{border-top:1px solid var(--line);overflow:hidden}
     <div class="duo">
       <span class="chip micro">Fig.02 — Front & Back</span>
       <div class="duo-grid">
-        <h2 style="text-align:center;font-size:2rem;letter-spacing:.12em;margin:0 0 18px;font-weight:900;text-transform:uppercase;">The OG</h2>
-<img src="assets/og-front.png" data-fallbacks="assets/og-black-front.png|assets/og-grey-front.png|og-front.png|og-black-front.png|og-grey-front.png" alt="The OG hoodie front">
+        <div class="og-title-overlay">THE OG</div>
+        <img src="assets/og-front.png" data-fallbacks="assets/og-black-front.png|assets/og-grey-front.png|og-front.png|og-black-front.png|og-grey-front.png" alt="The OG hoodie front">
         <img src="assets/og-back.png" data-fallbacks="assets/og-black-back.png|assets/og-grey-back.png|og-back.png|og-black-back.png|og-grey-back.png" alt="The OG hoodie back">
       </div>
     </div>
