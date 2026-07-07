@@ -218,10 +218,83 @@ footer{border-top:1px solid var(--line)}
   color:var(--blue);
 }
 
+
+/* restored top-right menu links */
+.navlinks{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+.navlinks a:not(.cartlink){
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--mut);
+  text-decoration:none;
+  font-weight:900;
+  white-space:nowrap;
+}
+.navlinks a:not(.cartlink):hover{
+  color:var(--ink);
+}
+@media(max-width:800px){
+  .navlinks{gap:12px}
+  .navlinks a:not(.cartlink){font-size:9px;letter-spacing:.08em}
+}
+@media(max-width:560px){
+  .navlinks a[href="#about"],
+  .navlinks a[href="#size-guide"]{display:none}
+}
+
+
+/* original language-cycle loading screen */
+#intro{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:14px;
+  transition:transform .7s cubic-bezier(.76,0,.24,1);
+}
+#intro.done{transform:translateY(-105%)}
+#intro .roll{
+  height:1.22em;
+  overflow:hidden;
+  text-align:center;
+  font-family:'Space Grotesk','Noto Sans JP',Archivo,sans-serif;
+  font-size:clamp(56px,11vw,120px);
+  line-height:1.2;
+  font-weight:900;
+  color:#6c9bff;
+}
+#rollWord{
+  display:block;
+  text-shadow:0 0 70px rgba(59,109,255,.5);
+  transition:transform .12s ease,opacity .12s ease;
+}
+#rollWord.out{transform:translateY(-70%) rotateX(65deg);opacity:0}
+#rollWord.pre{transition:none;transform:translateY(70%) rotateX(-65deg);opacity:0}
+#intro .intro-label{
+  font-family:'Space Grotesk',Archivo,sans-serif;
+  font-weight:800;
+  font-size:20px;
+  letter-spacing:.4em;
+  text-transform:uppercase;
+  color:var(--ink);
+  opacity:.9;
+}
+
 </style>
 </head>
 <body>
-<div id="intro"><div class="intro-word">MOOD.</div></div>
+<div id="intro" aria-hidden="true">
+  <div class="roll"><span id="rollWord">mood</span></div>
+  <div class="intro-label">mood.</div>
+</div>
 <div id="prog"></div>
 
 <header id="hdr">
@@ -232,11 +305,11 @@ footer{border-top:1px solid var(--line)}
         <a href="#collection">Collection</a>
         <a href="#about">About</a>
         <a href="#size-guide">Size Guide</a>
+        <a href="#notify">Join</a>
         <a href="#" class="cartlink" id="cartLink" aria-label="Shopping Cart">
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.8a1 1 0 0 0 1-.8L21 7H7"/></svg>
           <span class="cartbadge" id="cartCount">0</span>
         </a>
-        <a href="#notify" class="join">Join</a>
       </div>
     </nav>
   </div>
@@ -322,8 +395,39 @@ footer{border-top:1px solid var(--line)}
 (function(){
   var reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var intro=document.getElementById('intro');
-  function killIntro(){if(intro){intro.classList.add('done');setTimeout(function(){intro.remove();intro=null},760)}}
-  document.addEventListener('click',killIntro,{once:true});setTimeout(killIntro,reduceMotion?300:1500);
+  var rollEl=document.getElementById('rollWord');
+  var INTRO_SEQ=['mood','기분','心情','ánimo','मूड','humeur','مزاج','humor','気分'];
+  function killIntro(){
+    if(intro){
+      intro.classList.add('done');
+      setTimeout(function(){ if(intro){ intro.remove(); intro=null; } },760);
+    }
+  }
+  document.addEventListener('click',killIntro,{once:true});
+  if(reduceMotion || !rollEl){
+    setTimeout(killIntro,300);
+  }else{
+    var wi=0;
+    function stepIntro(){
+      if(!intro) return;
+      wi++;
+      if(wi>=INTRO_SEQ.length){
+        setTimeout(killIntro,620);
+        return;
+      }
+      rollEl.classList.add('out');
+      setTimeout(function(){
+        if(!intro) return;
+        rollEl.textContent=INTRO_SEQ[wi];
+        rollEl.classList.remove('out');
+        rollEl.classList.add('pre');
+        void rollEl.offsetWidth;
+        rollEl.classList.remove('pre');
+        setTimeout(stepIntro,wi===INTRO_SEQ.length-1?80:150);
+      },120);
+    }
+    setTimeout(stepIntro,420);
+  }
 
   var navKj=document.getElementById('navKj');
   if(navKj&&!reduceMotion){var NAVSEQ=['気分','기분','心情','ánimo','मूड','humeur','مزاج','humor'];var ni=0;(function navStep(){ni=(ni+1)%NAVSEQ.length;navKj.textContent=NAVSEQ[ni];setTimeout(navStep,ni===0?5200:2400)})()}
