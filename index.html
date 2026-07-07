@@ -174,16 +174,60 @@ footer{border-top:1px solid var(--line)}
 .foot .social a{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);text-decoration:none;font-weight:900}
 .copy{color:#57534b;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;width:100%}
 @media(max-width:720px){.sect{padding:90px 22px 76px}.wrap{padding:0 22px}.ph{min-height:360px}.ph img.main{padding:22px}}
+
+/* typed mood branding restored */
+.intro-word{
+  font-family:'Space Grotesk',Archivo,sans-serif;
+  font-size:clamp(64px,13vw,170px);
+  font-weight:900;
+  letter-spacing:-.05em;
+  color:var(--ink);
+  text-transform:uppercase;
+  animation:introPulse 1.25s ease both;
+}
+.brand-word{
+  font-family:'Space Grotesk',Archivo,sans-serif;
+  font-size:30px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-.06em;
+  color:var(--ink);
+}
+.hero-word{
+  font-family:'Space Grotesk',Archivo,sans-serif;
+  font-weight:900;
+  letter-spacing:-.055em;
+  font-size:clamp(88px,15.5vw,210px);
+  line-height:.84;
+  text-transform:uppercase;
+  display:flex;
+  align-items:flex-end;
+  margin:0 0 24px;
+}
+.hero-word .letter{
+  color:var(--ink);
+  display:inline-block;
+  transition:color .18s ease,transform .18s ease,text-shadow .18s ease;
+}
+.hero-word .letter:hover{
+  color:var(--blue);
+  transform:translateY(-4px) skewX(-5deg);
+  text-shadow:0 0 50px rgba(59,109,255,.45);
+}
+.hero-word .dotchar{
+  color:var(--blue);
+}
+
 </style>
 </head>
 <body>
-<div id="intro"><img src="assets/mood-logo.png" alt="mood logo"></div>
+<div id="intro"><div class="intro-word">MOOD.</div></div>
 <div id="prog"></div>
 
 <header id="hdr">
   <div class="wrap">
     <nav>
-      <a href="#top" class="brand"><img src="assets/mood-logo.png" alt="mood."><span class="kj" id="navKj">気分</span></a>
+      <a href="#top" class="brand"><span class="brand-word">mood.</span><span class="kj" id="navKj">気分</span></a>
       <div class="navlinks">
         <a href="#collection">Collection</a>
         <a href="#about">About</a>
@@ -201,7 +245,9 @@ footer{border-top:1px solid var(--line)}
 <section class="hero" id="top">
   <div class="hero-l">
     <div class="kicker"><span class="micro num">001 — Drop 01</span><span class="rule"></span></div>
-    <img class="hero-logo" src="assets/mood-logo.png" alt="mood.">
+    <h1 class="hero-word" aria-label="MOOD">
+      <span class="letter">M</span><span class="letter">O</span><span class="letter">O</span><span class="letter">D</span><span class="letter dotchar">.</span>
+    </h1>
     <p class="tag">Clothing for every mood. Made by teens, for teens.</p>
     <form class="emailform" id="heroForm"><input type="email" id="heroEmail" placeholder="Email address" required><button type="submit">Join →</button></form>
     <p class="formnote" id="heroNote">Be first to see drop 01 — no spam.</p>
@@ -270,7 +316,7 @@ footer{border-top:1px solid var(--line)}
 
 <div class="cart-drawer" id="cartDrawer"><div class="cart-head"><h3>Your Cart</h3><button class="cart-close" id="cartClose" type="button">×</button></div><div class="cart-items" id="cartItems"><p class="cart-empty">Your cart is empty.</p></div><div class="cart-foot"><div class="cart-total"><span>Total</span><span id="cartTotal">$0.00</span></div><a class="checkout-btn" href="https://mood-22112180.myshopify.com" target="_blank">Checkout</a></div></div>
 
-<footer><div class="wrap foot"><a href="#top" class="brand"><img src="assets/mood-logo.png" alt="mood."><span class="kj">気分</span></a><div class="social"><a href="#">Instagram</a><a href="#">TikTok</a><a href="mailto:hello@example.com">Email</a></div><p class="copy">© <span id="yr"></span> mood — made by teens, for teens</p></div></footer>
+<footer><div class="wrap foot"><a href="#top" class="brand"><span class="brand-word">mood.</span><span class="kj">気分</span></a><div class="social"><a href="#">Instagram</a><a href="#">TikTok</a><a href="mailto:hello@example.com">Email</a></div><p class="copy">© <span id="yr"></span> mood — made by teens, for teens</p></div></footer>
 
 <script>
 (function(){
