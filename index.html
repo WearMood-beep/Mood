@@ -246,6 +246,47 @@ footer{border-top:1px solid var(--line)}
   .measure-guide{grid-template-columns:1fr}
 }
 
+
+/* size selector */
+.size-choice{
+  margin-top:16px;
+}
+.size-choice label{
+  display:block;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--dim);
+  font-weight:900;
+  margin-bottom:10px;
+}
+.size-select{
+  width:100%;
+  background:transparent;
+  color:var(--ink);
+  border:1px solid rgba(255,255,255,.18);
+  padding:12px;
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:900;
+  outline:none;
+  cursor:pointer;
+}
+.size-select:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 1px var(--blue);
+}
+.size-select option{
+  background:#0c0c0c;
+  color:#f2efe8;
+}
+.size-note-small{
+  color:var(--dim);
+  font-size:11px;
+  margin-top:8px;
+}
+
 </style>
 </head>
 <body>
@@ -306,8 +347,19 @@ footer{border-top:1px solid var(--line)}
           <button class="color-button" type="button" data-color="Maroon" data-jaw-front="assets/og-maroon-front.png" data-mood-front="assets/og-mood-maroon-front.png" data-back="assets/og-maroon-back.png"><span class="color-dot"></span>Maroon</button>
         </div></div>
         <div class="logo-choice"><label for="ogLogo">Front Logo</label><select class="logo-select" id="ogLogo" data-logo-select><option value="Jaw" selected>Jaw</option><option value="Mood">Mood</option></select><div class="logo-note">Mood uses the former Traditional front image.</div></div>
+        <div class="size-choice">
+          <label>Size</label>
+          <select class="size-select" data-size-select>
+            <option value="S — Small">S — Small</option>
+            <option value="M — Medium" selected>M — Medium</option>
+            <option value="L — Large">L — Large</option>
+            <option value="XL — Extra Large">XL — Extra Large</option>
+            <option value="2XL — Extra Extra Large">2XL — Extra Extra Large</option>
+          </select>
+          <div class="size-note-small">All sizes refer to the size guides below.</div>
+        </div>
         <details><summary>Description<span>+</span></summary><p>The OG sweater is the first design we made. Choose the color, then choose whether the front logo is Jaw or Mood.</p></details>
-        <button class="buy add-cart" type="button" data-name="The OG" data-price="85" data-img="assets/og-front.png" data-color="Black" data-logo="Jaw">Add to Cart</button>
+        <button class="buy add-cart" type="button" data-name="The OG" data-price="85" data-img="assets/og-front.png" data-color="Black" data-logo="Jaw" data-size="M — Medium">Add to Cart</button>
       </article>
 
       <article class="card product-card" data-product="Snooze">
@@ -315,8 +367,19 @@ footer{border-top:1px solid var(--line)}
         <div class="prow"><div><div class="pname">Snooze Hoodie</div><div class="psub">Sunfade oversized · front logo choice</div></div><div class="price">$85.00</div></div>
         <div class="swatches"><span class="sw" style="background:linear-gradient(180deg,#a9c3d6 20%,#41708f 80%)"></span><span class="swlabel">Sunfade Blue · S–2XL</span></div>
         <div class="logo-choice"><label for="snoozeLogo">Front Logo</label><select class="logo-select" id="snoozeLogo" data-logo-select><option value="Jaw" selected>Jaw</option><option value="Mood">Mood</option></select></div>
+        <div class="size-choice">
+          <label>Size</label>
+          <select class="size-select" data-size-select>
+            <option value="S — Small">S — Small</option>
+            <option value="M — Medium" selected>M — Medium</option>
+            <option value="L — Large">L — Large</option>
+            <option value="XL — Extra Large">XL — Extra Large</option>
+            <option value="2XL — Extra Extra Large">2XL — Extra Extra Large</option>
+          </select>
+          <div class="size-note-small">All sizes refer to the size guides below.</div>
+        </div>
         <details><summary>Description<span>+</span></summary><p>The Snooze hoodie represents the lazy feeling when you walk into school.</p></details>
-        <button class="buy add-cart" type="button" data-name="Snooze Hoodie" data-price="85" data-img="assets/snooze-front.png" data-color="Sunfade Blue" data-logo="Jaw">Add to Cart</button>
+        <button class="buy add-cart" type="button" data-name="Snooze Hoodie" data-price="85" data-img="assets/snooze-front.png" data-color="Sunfade Blue" data-logo="Jaw" data-size="M — Medium">Add to Cart</button>
       </article>
 
       <article class="card product-card" data-product="Locked In">
@@ -324,8 +387,19 @@ footer{border-top:1px solid var(--line)}
         <div class="prow"><div><div class="pname">Locked In Hoodie</div><div class="psub">Washed heavyweight · front logo choice</div></div><div class="price">$85.00</div></div>
         <div class="swatches"><span class="sw" style="background:#3a322e;box-shadow:0 0 0 2px var(--blue)"></span><span class="swlabel">Washed Black · S–2XL</span></div>
         <div class="logo-choice"><label for="lockedLogo">Front Logo</label><select class="logo-select" id="lockedLogo" data-logo-select><option value="Jaw" selected>Jaw</option><option value="Mood">Mood</option></select></div>
+        <div class="size-choice">
+          <label>Size</label>
+          <select class="size-select" data-size-select>
+            <option value="S — Small">S — Small</option>
+            <option value="M — Medium" selected>M — Medium</option>
+            <option value="L — Large">L — Large</option>
+            <option value="XL — Extra Large">XL — Extra Large</option>
+            <option value="2XL — Extra Extra Large">2XL — Extra Extra Large</option>
+          </select>
+          <div class="size-note-small">All sizes refer to the size guides below.</div>
+        </div>
         <details><summary>Description<span>+</span></summary><p>The Locked In hoodie represents a focused mood — studying, hooping, or getting work done.</p></details>
-        <button class="buy add-cart" type="button" data-name="Locked In Hoodie" data-price="85" data-img="assets/lockedin-front.png" data-color="Washed Black" data-logo="Jaw">Add to Cart</button>
+        <button class="buy add-cart" type="button" data-name="Locked In Hoodie" data-price="85" data-img="assets/lockedin-front.png" data-color="Washed Black" data-logo="Jaw" data-size="M — Medium">Add to Cart</button>
       </article>
 
     </div>
@@ -453,6 +527,17 @@ footer{border-top:1px solid var(--line)}
       });
     });
     card.querySelectorAll('[data-logo-select]').forEach(function(sel){sel.addEventListener('change',setFront);setFront()});
+
+    // size customization
+    card.querySelectorAll('[data-size-select]').forEach(function(sel){
+      var add=card.querySelector('.add-cart');
+      function updateSize(){
+        if(add) add.dataset.size=sel.value;
+      }
+      sel.addEventListener('change',updateSize);
+      updateSize();
+    });
+
     if(img&&key){function spin(){if(busy)return;busy=true;var next=!showingBack,front=img.dataset.front,back=img.dataset.back;img.classList.remove('spinning');void img.offsetWidth;img.classList.add('spinning');setTimeout(function(){img.src=next?back:front;showingBack=next},245);setTimeout(function(){img.classList.remove('spinning');busy=false},650)}key.addEventListener('mouseenter',spin);key.addEventListener('click',function(e){e.preventDefault();spin()})}
   });
 
@@ -464,7 +549,7 @@ footer{border-top:1px solid var(--line)}
   function openCart(){cartDrawer.classList.add('open')}
   function closeCart(){cartDrawer.classList.remove('open')}
   function updateCart(){var count=cart.reduce((s,i)=>s+i.qty,0),total=cart.reduce((s,i)=>s+i.qty*i.price,0);cartCount.textContent=count;cartCount.classList.toggle('on',count>0);cartTotal.textContent=money(total);if(!count){cartItems.innerHTML='<p class="cart-empty">Your cart is empty.</p>';return}cartItems.innerHTML=cart.map((item,idx)=>'<div class="cart-item"><img src="'+item.img+'" alt=""><div><div class="ci-name">'+item.name+'</div><div class="ci-price">'+money(item.price)+'</div></div><div class="qty"><button type="button" data-dec="'+idx+'">−</button><span>'+item.qty+'</span><button type="button" data-inc="'+idx+'">+</button></div></div>').join('')}
-  document.querySelectorAll('.add-cart').forEach(function(button){button.addEventListener('click',function(){var item={name:button.dataset.name+(button.dataset.color?' — '+button.dataset.color:'')+(button.dataset.logo?' — Logo: '+button.dataset.logo:''),price:parseFloat(button.dataset.price),img:button.dataset.img,qty:1};var ex=cart.find(i=>i.name===item.name);if(ex)ex.qty++;else cart.push(item);updateCart();openCart()})});
+  document.querySelectorAll('.add-cart').forEach(function(button){button.addEventListener('click',function(){var item={name:button.dataset.name+(button.dataset.color?' — '+button.dataset.color:'')+(button.dataset.logo?' — Logo: '+button.dataset.logo:'')+(button.dataset.size?' — Size: '+button.dataset.size:''),price:parseFloat(button.dataset.price),img:button.dataset.img,qty:1};var ex=cart.find(i=>i.name===item.name);if(ex)ex.qty++;else cart.push(item);updateCart();openCart()})});
   cartLink.addEventListener('click',function(e){e.preventDefault();openCart()});cartClose.addEventListener('click',closeCart);
   cartItems.addEventListener('click',function(e){var inc=e.target.dataset.inc,dec=e.target.dataset.dec;if(inc!==undefined){cart[+inc].qty++;updateCart()}if(dec!==undefined){cart[+dec].qty--;if(cart[+dec].qty<=0)cart.splice(+dec,1);updateCart()}});
   updateCart();
