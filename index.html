@@ -1,70 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>mood. — wear your mood</title>
 <meta name="description" content="mood — clothing for every mood. Made by teens, for teens.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0c0c0c;
   --ink:#f2efe8;
+  --mut:#a9a69f;
+  --dim:#7f7a72;
   --blue:#3b6dff;
-  --mut:#aaa69f;
-  --dim:#817e78;
+  --blue2:#6c9bff;
   --line:rgba(255,255,255,.11);
   --cream:#f7f3ea;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:84px}
-body{background:var(--bg);color:var(--ink);font-family:Archivo,system-ui,-apple-system,sans-serif;line-height:1.55;overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{background:var(--bg);color:var(--ink);font-family:Archivo,system-ui,-apple-system,sans-serif;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
 button,input,select{font-family:inherit}
 a{color:inherit}
-.wrap{max-width:1320px;margin:auto;padding:0 30px}
+.wrap{max-width:1320px;margin:0 auto;padding:0 30px}
 .micro{font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:900}
 .num{color:var(--blue)}
-#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--blue);z-index:999}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--blue);z-index:1000}
 
-/* intro */
-#intro{position:fixed;inset:0;z-index:500;background:#000;display:flex;align-items:center;justify-content:center;transition:transform .7s cubic-bezier(.76,0,.24,1)}
+/* loader */
+#intro{position:fixed;inset:0;background:var(--bg);z-index:900;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;transition:transform .68s cubic-bezier(.76,0,.24,1)}
 #intro.done{transform:translateY(-105%)}
-#intro img{width:min(320px,62vw);filter:drop-shadow(0 0 48px rgba(255,255,255,.14));animation:introPulse 1.25s ease both}
-@keyframes introPulse{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+#intro .roll{height:1.22em;overflow:hidden;text-align:center;font-family:'Space Grotesk','Noto Sans JP',sans-serif;font-size:clamp(56px,11vw,116px);line-height:1.2;font-weight:800;color:var(--blue2)}
+#rollWord{display:block;text-shadow:0 0 70px rgba(59,109,255,.48);transition:transform .12s ease,opacity .12s ease}
+#rollWord.out{transform:translateY(-70%) rotateX(65deg);opacity:0}
+#rollWord.pre{transition:none;transform:translateY(70%) rotateX(-65deg);opacity:0}
+#intro .intro-label{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:.4em;text-transform:uppercase;color:var(--ink);opacity:.9}
 
 /* nav */
-header{position:fixed;top:0;left:0;right:0;z-index:200;background:linear-gradient(180deg,rgba(12,12,12,.9),rgba(12,12,12,.4));backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:.25s}
+header{position:fixed;top:0;left:0;right:0;z-index:300;background:linear-gradient(180deg,rgba(12,12,12,.86),rgba(12,12,12,.28));backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:.25s}
 header.on{background:rgba(12,12,12,.96);border-bottom-color:var(--line)}
-nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.brand img{width:88px;height:auto}
-.kj{font-family:"Noto Sans JP",sans-serif;color:#6c9bff;font-weight:800}
-.navlinks{display:flex;align-items:center;gap:22px}
-.navlinks a:not(.cartlink):not(.join){font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-decoration:none;font-weight:900;white-space:nowrap}
-.navlinks a:hover{color:var(--ink)}
-.join{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;background:var(--blue);padding:11px 18px;text-decoration:none}
-.cartlink{position:relative;color:var(--mut);display:inline-flex;text-decoration:none}
+nav{height:74px;width:100%;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:baseline;gap:12px;text-decoration:none;flex:0 0 auto}
+.brand-word{font-family:'Space Grotesk',sans-serif;font-size:30px;line-height:1;font-weight:800;letter-spacing:-.06em;color:var(--ink)}
+.kj{font-family:'Noto Sans JP',sans-serif;color:var(--blue2);font-weight:800}
+.brand .kj{font-size:15px;transition:.16s}
+.navlinks{margin-left:auto;display:flex;align-items:center;justify-content:flex-end;gap:24px}
+.navlinks a:not(.cartlink){font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-decoration:none;font-weight:900;white-space:nowrap;transition:.2s}
+.navlinks a:not(.cartlink):hover{color:var(--ink)}
+.cartlink{position:relative;display:inline-flex;align-items:center;justify-content:center;color:var(--mut);text-decoration:none;transition:.2s}
+.cartlink:hover{color:var(--ink);transform:translateY(-1px)}
 .cartbadge{position:absolute;top:-9px;right:-10px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--blue);color:var(--ink);font-size:10px;line-height:16px;text-align:center;font-weight:900;transform:scale(0);transition:.2s}
 .cartbadge.on{transform:scale(1)}
-@media(max-width:800px){.navlinks a:not(.cartlink):not(.join){display:none}.brand img{width:78px}.navlinks{gap:14px}}
+@media(max-width:700px){.navlinks{gap:14px}.navlinks a[href="#about"],.navlinks a[href="#size-guide"]{display:none}.brand-word{font-size:26px}}
 
 /* hero */
 .hero{min-height:100vh;display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line)}
-.hero-l{flex:1 1 480px;min-width:320px;display:flex;flex-direction:column;justify-content:center;padding:120px 30px 70px;margin-left:max(0px,calc((100vw - 1320px)/2))}
-.kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.hero-l{flex:1 1 480px;min-width:320px;display:flex;flex-direction:column;justify-content:center;padding:120px 30px 70px;max-width:760px;margin-left:max(0px,calc((100vw - 1320px)/2))}
+.kicker{display:flex;align-items:center;gap:14px;margin-bottom:30px}
 .kicker .rule{height:1px;max-width:120px;flex:1;background:rgba(255,255,255,.14)}
-.hero-logo{width:min(520px,86vw);height:auto;margin:0 0 24px;filter:brightness(0) invert(1) drop-shadow(0 0 58px rgba(255,255,255,.08))}
+.hero-word{font-family:'Space Grotesk',sans-serif;font-weight:800;letter-spacing:-.055em;font-size:clamp(88px,15.5vw,210px);line-height:.84;text-transform:none;display:flex;align-items:flex-end;margin:0 0 24px}
+.hero-word .letter{color:var(--ink);display:inline-block;transition:color .18s ease,transform .18s ease,text-shadow .18s ease}
+.hero-word .letter:hover{color:var(--blue);transform:translateY(-4px) skewX(-5deg);text-shadow:0 0 50px rgba(59,109,255,.45)}
+.hero-word .dotchar{color:var(--blue)}
 .tag{font-size:clamp(17px,2vw,22px);color:#d8d4cb;font-weight:600;max-width:460px}
 .emailform{display:flex;margin-top:44px;max-width:440px;border-bottom:1px solid rgba(255,255,255,.3)}
+.emailform:focus-within{border-bottom-color:var(--blue)}
 .emailform input{flex:1;background:transparent;border:0;outline:0;color:var(--ink);padding:14px 2px;font-size:15px}
 .emailform button{border:0;background:transparent;color:var(--blue);font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:900;cursor:pointer}
 .formnote{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:16px;font-weight:900;min-height:16px}
 .hero-r{flex:1 1 420px;min-width:300px;position:relative;overflow:hidden;min-height:60vh;background:radial-gradient(60% 45% at 50% 50%,rgba(59,109,255,.16),transparent 70%),repeating-linear-gradient(0deg,transparent 0 47px,rgba(255,255,255,.045) 47px 48px),repeating-linear-gradient(90deg,transparent 0 47px,rgba(255,255,255,.045) 47px 48px)}
 .fig{position:absolute;top:24px;left:24px;z-index:2}
-.kanji-big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#6c9bff;font-family:"Noto Sans JP",sans-serif;font-size:clamp(150px,27vh,300px);line-height:1.06;text-shadow:0 0 90px rgba(59,109,255,.45);animation:floaty 7s ease-in-out infinite}
+.kanji-big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--blue2);font-family:'Noto Sans JP',sans-serif;font-size:clamp(150px,27vh,300px);line-height:1.06;text-shadow:0 0 90px rgba(59,109,255,.45);animation:floaty 7s ease-in-out infinite}
 @keyframes floaty{0%,100%{transform:translateY(-8px)}50%{transform:translateY(10px)}}
 
 /* ticker */
@@ -133,7 +142,7 @@ details p{color:var(--mut);font-size:14px;margin-top:12px}
 
 /* content */
 .mani{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
-.mani .wm{position:absolute;top:50%;left:0;width:100%;text-align:center;font-family:"Noto Sans JP",sans-serif;font-weight:900;font-size:clamp(220px,42vw,560px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(59,109,255,.14);pointer-events:none;white-space:nowrap;transform:translateY(-50%)}
+.mani .wm{position:absolute;top:50%;left:0;width:100%;text-align:center;font-family:'Noto Sans JP',sans-serif;font-weight:900;font-size:clamp(220px,42vw,560px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(59,109,255,.14);pointer-events:none;white-space:nowrap;transform:translateY(-50%)}
 .mani p.big{font-weight:700;font-size:clamp(26px,4vw,52px);line-height:1.18;letter-spacing:-.02em;margin-top:30px;max-width:1040px;position:relative}
 .hl{color:var(--blue)}
 .dropgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:50px;align-items:center}
@@ -151,7 +160,7 @@ details p{color:var(--mut);font-size:14px;margin-top:12px}
 .size-table td{padding:16px 12px;border-bottom:1px solid var(--line)}
 
 /* cart */
-.cart-drawer{position:fixed;top:0;right:0;width:min(420px,92vw);height:100vh;background:#111;z-index:300;border-left:1px solid var(--line);transform:translateX(105%);transition:.45s;display:flex;flex-direction:column}
+.cart-drawer{position:fixed;top:0;right:0;width:min(420px,92vw);height:100vh;background:#111;z-index:400;border-left:1px solid var(--line);transform:translateX(105%);transition:.45s;display:flex;flex-direction:column}
 .cart-drawer.open{transform:translateX(0)}
 .cart-head{display:flex;justify-content:space-between;align-items:center;padding:24px;border-bottom:1px solid var(--line)}
 .cart-head h3{font-size:18px;letter-spacing:.18em;text-transform:uppercase}
@@ -167,147 +176,12 @@ details p{color:var(--mut);font-size:14px;margin-top:12px}
 .cart-foot{padding:24px;border-top:1px solid var(--line)}
 .cart-total{display:flex;justify-content:space-between;font-weight:900;font-size:20px;margin-bottom:18px}
 .checkout-btn{width:100%;display:flex;justify-content:center;padding:15px;background:var(--blue);text-decoration:none;font-weight:900;letter-spacing:.18em;text-transform:uppercase;font-size:12px}
-.fly-img{position:fixed;z-index:400;width:92px;height:112px;object-fit:contain;background:var(--cream);pointer-events:none;transition:transform .72s cubic-bezier(.22,1,.36,1),opacity .72s ease}
 footer{border-top:1px solid var(--line)}
 .foot{padding:44px 30px 60px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap}
 .foot .social{display:flex;gap:26px}
 .foot .social a{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);text-decoration:none;font-weight:900}
 .copy{color:#57534b;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;width:100%}
 @media(max-width:720px){.sect{padding:90px 22px 76px}.wrap{padding:0 22px}.ph{min-height:360px}.ph img.main{padding:22px}}
-
-/* typed mood branding restored */
-.intro-word{
-  font-family:'Space Grotesk',Archivo,sans-serif;
-  font-size:clamp(64px,13vw,170px);
-  font-weight:900;
-  letter-spacing:-.05em;
-  color:var(--ink);
-  text-transform:uppercase;
-  animation:introPulse 1.25s ease both;
-}
-.brand-word{
-  font-family:'Space Grotesk',Archivo,sans-serif;
-  font-size:30px;
-  line-height:1;
-  font-weight:900;
-  letter-spacing:-.06em;
-  color:var(--ink);
-}
-.hero-word{
-  font-family:'Space Grotesk',Archivo,sans-serif;
-  font-weight:900;
-  letter-spacing:-.055em;
-  font-size:clamp(88px,15.5vw,210px);
-  line-height:.84;
-  text-transform:uppercase;
-  display:flex;
-  align-items:flex-end;
-  margin:0 0 24px;
-}
-.hero-word .letter{
-  color:var(--ink);
-  display:inline-block;
-  transition:color .18s ease,transform .18s ease,text-shadow .18s ease;
-}
-.hero-word .letter:hover{
-  color:var(--blue);
-  transform:translateY(-4px) skewX(-5deg);
-  text-shadow:0 0 50px rgba(59,109,255,.45);
-}
-.hero-word .dotchar{
-  color:var(--blue);
-}
-
-
-/* restored top-right menu links */
-.navlinks{
-  display:flex;
-  align-items:center;
-  gap:18px;
-}
-.navlinks a:not(.cartlink){
-  font-size:10px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--mut);
-  text-decoration:none;
-  font-weight:900;
-  white-space:nowrap;
-}
-.navlinks a:not(.cartlink):hover{
-  color:var(--ink);
-}
-@media(max-width:800px){
-  .navlinks{gap:12px}
-  .navlinks a:not(.cartlink){font-size:9px;letter-spacing:.08em}
-}
-@media(max-width:560px){
-  .navlinks a[href="#about"],
-  .navlinks a[href="#size-guide"]{display:none}
-}
-
-
-/* original language-cycle loading screen */
-#intro{
-  position:fixed;
-  inset:0;
-  z-index:500;
-  background:#000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  gap:14px;
-  transition:transform .7s cubic-bezier(.76,0,.24,1);
-}
-#intro.done{transform:translateY(-105%)}
-#intro .roll{
-  height:1.22em;
-  overflow:hidden;
-  text-align:center;
-  font-family:'Space Grotesk','Noto Sans JP',Archivo,sans-serif;
-  font-size:clamp(56px,11vw,120px);
-  line-height:1.2;
-  font-weight:900;
-  color:#6c9bff;
-}
-#rollWord{
-  display:block;
-  text-shadow:0 0 70px rgba(59,109,255,.5);
-  transition:transform .12s ease,opacity .12s ease;
-}
-#rollWord.out{transform:translateY(-70%) rotateX(65deg);opacity:0}
-#rollWord.pre{transition:none;transform:translateY(70%) rotateX(-65deg);opacity:0}
-#intro .intro-label{
-  font-family:'Space Grotesk',Archivo,sans-serif;
-  font-weight:800;
-  font-size:20px;
-  letter-spacing:.4em;
-  text-transform:uppercase;
-  color:var(--ink);
-  opacity:.9;
-}
-
-
-/* lowercase interactive hero mood */
-.hero-word{
-  text-transform:none !important;
-}
-
-
-/* push nav to far right */
-nav{
-  justify-content:space-between !important;
-}
-.brand{
-  margin-right:auto;
-}
-.navlinks{
-  margin-left:auto !important;
-  justify-content:flex-end;
-  gap:22px;
-}
-
 </style>
 </head>
 <body>
@@ -337,9 +211,7 @@ nav{
 <section class="hero" id="top">
   <div class="hero-l">
     <div class="kicker"><span class="micro num">001 — Drop 01</span><span class="rule"></span></div>
-    <h1 class="hero-word" aria-label="mood">
-      <span class="letter">m</span><span class="letter">o</span><span class="letter">o</span><span class="letter">d</span><span class="letter dotchar">.</span>
-    </h1>
+    <h1 class="hero-word" aria-label="mood"><span class="letter">m</span><span class="letter">o</span><span class="letter">o</span><span class="letter">d</span><span class="letter dotchar">.</span></h1>
     <p class="tag">Clothing for every mood. Made by teens, for teens.</p>
     <form class="emailform" id="heroForm"><input type="email" id="heroEmail" placeholder="Email address" required><button type="submit">Join →</button></form>
     <p class="formnote" id="heroNote">Be first to see drop 01 — no spam.</p>
@@ -362,7 +234,7 @@ nav{
           <img class="main" data-flip src="assets/og-front.png" data-front="assets/og-front.png" data-jaw-front="assets/og-front.png" data-mood-front="assets/og-mood-front.png" data-back="assets/og-back.png" alt="The OG hoodie">
           <button class="rotate-key" type="button" aria-label="Spin The OG hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button>
         </div>
-        <div class="prow"><div><div class="pname">The OG</div><div class="psub">Distressed panel · customizable front logo</div></div><div class="price">$75.00</div></div>
+        <div class="prow"><div><div class="pname">The OG</div><div class="psub">Distressed panel · customizable front logo</div></div><div class="price">$85.00</div></div>
         <div class="color-picker"><div class="color-title">Color: <span class="selected-color">Black</span></div><div class="color-buttons">
           <button class="color-button active" type="button" data-color="Black" data-jaw-front="assets/og-front.png" data-mood-front="assets/og-mood-front.png" data-back="assets/og-back.png"><span class="color-dot"></span>Black</button>
           <button class="color-button" type="button" data-color="Grey" data-jaw-front="assets/og-grey-front.png" data-mood-front="assets/og-mood-grey-front.png" data-back="assets/og-grey-back.png"><span class="color-dot"></span>Grey</button>
@@ -371,25 +243,25 @@ nav{
         </div></div>
         <div class="logo-choice"><label for="ogLogo">Front Logo</label><select class="logo-select" id="ogLogo" data-logo-select><option value="Jaw" selected>Jaw</option><option value="Mood">Mood</option></select><div class="logo-note">Mood uses the former Traditional front image.</div></div>
         <details><summary>Description<span>+</span></summary><p>The OG sweater is the first design we made. Choose the color, then choose whether the front logo is Jaw or Mood.</p></details>
-        <button class="buy add-cart" type="button" data-name="The OG" data-price="75" data-img="assets/og-front.png" data-color="Black" data-logo="Jaw">Add to Cart</button>
+        <button class="buy add-cart" type="button" data-name="The OG" data-price="85" data-img="assets/og-front.png" data-color="Black" data-logo="Jaw">Add to Cart</button>
       </article>
 
       <article class="card product-card" data-product="Snooze">
         <div class="ph"><span class="figchip">Fig.03</span><span class="stock">In stock</span><img class="main" data-flip src="assets/snooze-front.png" data-front="assets/snooze-front.png" data-jaw-front="assets/snooze-front.png" data-mood-front="assets/snooze-mood-front.png" data-back="assets/snooze-back.png" alt="Snooze Hoodie"><button class="rotate-key" type="button" aria-label="Spin Snooze hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button></div>
-        <div class="prow"><div><div class="pname">Snooze Hoodie</div><div class="psub">Sunfade oversized · front logo choice</div></div><div class="price">$70.99</div></div>
+        <div class="prow"><div><div class="pname">Snooze Hoodie</div><div class="psub">Sunfade oversized · front logo choice</div></div><div class="price">$85.00</div></div>
         <div class="swatches"><span class="sw" style="background:linear-gradient(180deg,#a9c3d6 20%,#41708f 80%)"></span><span class="swlabel">Sunfade Blue · S–2XL</span></div>
         <div class="logo-choice"><label for="snoozeLogo">Front Logo</label><select class="logo-select" id="snoozeLogo" data-logo-select><option value="Jaw" selected>Jaw</option><option value="Mood">Mood</option></select></div>
         <details><summary>Description<span>+</span></summary><p>The Snooze hoodie represents the lazy feeling when you walk into school.</p></details>
-        <button class="buy add-cart" type="button" data-name="Snooze Hoodie" data-price="70.99" data-img="assets/snooze-front.png" data-color="Sunfade Blue" data-logo="Jaw">Add to Cart</button>
+        <button class="buy add-cart" type="button" data-name="Snooze Hoodie" data-price="85" data-img="assets/snooze-front.png" data-color="Sunfade Blue" data-logo="Jaw">Add to Cart</button>
       </article>
 
       <article class="card product-card" data-product="Locked In">
         <div class="ph"><span class="figchip">Fig.04</span><span class="stock">In stock</span><img class="main" data-flip src="assets/lockedin-front.png" data-front="assets/lockedin-front.png" data-jaw-front="assets/lockedin-front.png" data-mood-front="assets/lockedin-mood-front.png" data-back="assets/lockedin-back.png" alt="Locked In Hoodie"><button class="rotate-key" type="button" aria-label="Spin Locked In hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button></div>
-        <div class="prow"><div><div class="pname">Locked In Hoodie</div><div class="psub">Washed heavyweight · front logo choice</div></div><div class="price">$74.00</div></div>
+        <div class="prow"><div><div class="pname">Locked In Hoodie</div><div class="psub">Washed heavyweight · front logo choice</div></div><div class="price">$85.00</div></div>
         <div class="swatches"><span class="sw" style="background:#3a322e;box-shadow:0 0 0 2px var(--blue)"></span><span class="swlabel">Washed Black · S–2XL</span></div>
         <div class="logo-choice"><label for="lockedLogo">Front Logo</label><select class="logo-select" id="lockedLogo" data-logo-select><option value="Jaw" selected>Jaw</option><option value="Mood">Mood</option></select></div>
         <details><summary>Description<span>+</span></summary><p>The Locked In hoodie represents a focused mood — studying, hooping, or getting work done.</p></details>
-        <button class="buy add-cart" type="button" data-name="Locked In Hoodie" data-price="74" data-img="assets/lockedin-front.png" data-color="Washed Black" data-logo="Jaw">Add to Cart</button>
+        <button class="buy add-cart" type="button" data-name="Locked In Hoodie" data-price="85" data-img="assets/lockedin-front.png" data-color="Washed Black" data-logo="Jaw">Add to Cart</button>
       </article>
 
     </div>
@@ -413,40 +285,12 @@ nav{
 <script>
 (function(){
   var reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var intro=document.getElementById('intro');
-  var rollEl=document.getElementById('rollWord');
+
+  var intro=document.getElementById('intro'),rollEl=document.getElementById('rollWord');
   var INTRO_SEQ=['mood','기분','心情','ánimo','मूड','humeur','مزاج','humor','気分'];
-  function killIntro(){
-    if(intro){
-      intro.classList.add('done');
-      setTimeout(function(){ if(intro){ intro.remove(); intro=null; } },760);
-    }
-  }
+  function killIntro(){if(intro){intro.classList.add('done');setTimeout(function(){if(intro){intro.remove();intro=null}},760)}}
   document.addEventListener('click',killIntro,{once:true});
-  if(reduceMotion || !rollEl){
-    setTimeout(killIntro,300);
-  }else{
-    var wi=0;
-    function stepIntro(){
-      if(!intro) return;
-      wi++;
-      if(wi>=INTRO_SEQ.length){
-        setTimeout(killIntro,620);
-        return;
-      }
-      rollEl.classList.add('out');
-      setTimeout(function(){
-        if(!intro) return;
-        rollEl.textContent=INTRO_SEQ[wi];
-        rollEl.classList.remove('out');
-        rollEl.classList.add('pre');
-        void rollEl.offsetWidth;
-        rollEl.classList.remove('pre');
-        setTimeout(stepIntro,wi===INTRO_SEQ.length-1?80:150);
-      },120);
-    }
-    setTimeout(stepIntro,420);
-  }
+  if(reduceMotion||!rollEl){setTimeout(killIntro,300)}else{var wi=0;(function stepIntro(){wi++;if(wi>=INTRO_SEQ.length){setTimeout(killIntro,620);return}rollEl.classList.add('out');setTimeout(function(){if(!intro)return;rollEl.textContent=INTRO_SEQ[wi];rollEl.classList.remove('out');rollEl.classList.add('pre');void rollEl.offsetWidth;rollEl.classList.remove('pre');setTimeout(stepIntro,wi===INTRO_SEQ.length-1?80:150)},120)})()}
 
   var navKj=document.getElementById('navKj');
   if(navKj&&!reduceMotion){var NAVSEQ=['気分','기분','心情','ánimo','मूड','humeur','مزاج','humor'];var ni=0;(function navStep(){ni=(ni+1)%NAVSEQ.length;navKj.textContent=NAVSEQ[ni];setTimeout(navStep,ni===0?5200:2400)})()}
@@ -465,17 +309,10 @@ nav{
       var add=card.querySelector('.add-cart'),sel=card.querySelector('[data-logo-select]');
       var logo=sel?sel.value:(add?add.dataset.logo:'Jaw');
       var front=img.dataset.front;
-      if(img.dataset.jawFront && img.dataset.moodFront){
-        front=(logo==='Mood')?img.dataset.moodFront:img.dataset.jawFront;
-      }
-      img.dataset.front=front;
-      img.classList.remove('color-changing');
-      void img.offsetWidth;
-      img.classList.add('color-changing');
-      img.src=front;
+      if(img.dataset.jawFront&&img.dataset.moodFront){front=(logo==='Mood')?img.dataset.moodFront:img.dataset.jawFront}
+      img.dataset.front=front;img.classList.remove('color-changing');void img.offsetWidth;img.classList.add('color-changing');img.src=front;
       if(add){add.dataset.logo=logo;add.dataset.img=front}
-      showingBack=false;
-      setTimeout(function(){img.classList.remove('color-changing')},320);
+      showingBack=false;setTimeout(function(){img.classList.remove('color-changing')},320);
     }
     card.querySelectorAll('.color-button').forEach(function(btn){
       btn.addEventListener('click',function(){
