@@ -237,7 +237,7 @@ footer{border-top:1px solid var(--line)}
       </article>
 
       <article class="card product-card" data-product="Snooze">
-        <div class="ph"><span class="figchip">Fig.03</span><span class="stock">In stock</span><img class="main" data-flip src="assets/snooze-front.png" data-front="assets/snooze-front.png" data-back="assets/snooze-back.png" alt="Snooze Hoodie"><button class="rotate-key" type="button" aria-label="Spin Snooze hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button></div>
+        <div class="ph"><span class="figchip">Fig.03</span><span class="stock">In stock</span><img class="main" data-flip src="assets/snooze-front.png" data-front="assets/snooze-front.png" data-jaw-front="assets/snooze-front.png" data-mood-front="assets/snooze-mood-front.png" data-back="assets/snooze-back.png" alt="Snooze Hoodie"><button class="rotate-key" type="button" aria-label="Spin Snooze hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button></div>
         <div class="prow"><div><div class="pname">Snooze Hoodie</div><div class="psub">Sunfade oversized · front logo choice</div></div><div class="price">$70.99</div></div>
         <div class="swatches"><span class="sw" style="background:linear-gradient(180deg,#a9c3d6 20%,#41708f 80%)"></span><span class="swlabel">Sunfade Blue · S–2XL</span></div>
         <div class="logo-choice"><label for="snoozeLogo">Front Logo</label><select class="logo-select" id="snoozeLogo" data-logo-select><option value="Jaw" selected>Jaw</option><option value="Mood">Mood</option></select></div>
@@ -246,7 +246,7 @@ footer{border-top:1px solid var(--line)}
       </article>
 
       <article class="card product-card" data-product="Locked In">
-        <div class="ph"><span class="figchip">Fig.04</span><span class="stock">In stock</span><img class="main" data-flip src="assets/lockedin-front.png" data-front="assets/lockedin-front.png" data-back="assets/lockedin-back.png" alt="Locked In Hoodie"><button class="rotate-key" type="button" aria-label="Spin Locked In hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button></div>
+        <div class="ph"><span class="figchip">Fig.04</span><span class="stock">In stock</span><img class="main" data-flip src="assets/lockedin-front.png" data-front="assets/lockedin-front.png" data-jaw-front="assets/lockedin-front.png" data-mood-front="assets/lockedin-mood-front.png" data-back="assets/lockedin-back.png" alt="Locked In Hoodie"><button class="rotate-key" type="button" aria-label="Spin Locked In hoodie"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7v5h-5"/><path d="M20 12a8 8 0 1 1-2.34-5.66L20 8"/></svg></button></div>
         <div class="prow"><div><div class="pname">Locked In Hoodie</div><div class="psub">Washed heavyweight · front logo choice</div></div><div class="price">$74.00</div></div>
         <div class="swatches"><span class="sw" style="background:#3a322e;box-shadow:0 0 0 2px var(--blue)"></span><span class="swlabel">Washed Black · S–2XL</span></div>
         <div class="logo-choice"><label for="lockedLogo">Front Logo</label><select class="logo-select" id="lockedLogo" data-logo-select><option value="Jaw" selected>Jaw</option><option value="Mood">Mood</option></select></div>
@@ -296,9 +296,17 @@ footer{border-top:1px solid var(--line)}
       var add=card.querySelector('.add-cart'),sel=card.querySelector('[data-logo-select]');
       var logo=sel?sel.value:(add?add.dataset.logo:'Jaw');
       var front=img.dataset.front;
-      if(card.dataset.product==='OG'){front=(logo==='Mood')?img.dataset.moodFront:img.dataset.jawFront}
-      img.dataset.front=front;img.src=front;if(add){add.dataset.logo=logo;add.dataset.img=front}
+      if(img.dataset.jawFront && img.dataset.moodFront){
+        front=(logo==='Mood')?img.dataset.moodFront:img.dataset.jawFront;
+      }
+      img.dataset.front=front;
+      img.classList.remove('color-changing');
+      void img.offsetWidth;
+      img.classList.add('color-changing');
+      img.src=front;
+      if(add){add.dataset.logo=logo;add.dataset.img=front}
       showingBack=false;
+      setTimeout(function(){img.classList.remove('color-changing')},320);
     }
     card.querySelectorAll('.color-button').forEach(function(btn){
       btn.addEventListener('click',function(){
@@ -314,7 +322,7 @@ footer{border-top:1px solid var(--line)}
   });
 
   var dropRotator=document.getElementById('dropRotator');
-  if(dropRotator&&!reduceMotion){var imgs=['assets/og-front.png','assets/og-mood-front.png','assets/og-grey-front.png','assets/og-mood-grey-front.png','assets/og-coffee-front.png','assets/og-mood-coffee-front.png','assets/og-maroon-front.png','assets/og-mood-maroon-front.png','assets/snooze-front.png','assets/snooze-back.png','assets/lockedin-front.png','assets/lockedin-back.png'];var di=0;setInterval(function(){di=(di+1)%imgs.length;dropRotator.classList.add('out');setTimeout(function(){dropRotator.src=imgs[di];dropRotator.classList.remove('out')},280)},1800)}
+  if(dropRotator&&!reduceMotion){var imgs=['assets/og-front.png','assets/og-mood-front.png','assets/og-grey-front.png','assets/og-mood-grey-front.png','assets/og-coffee-front.png','assets/og-mood-coffee-front.png','assets/og-maroon-front.png','assets/og-mood-maroon-front.png','assets/snooze-front.png','assets/snooze-mood-front.png','assets/snooze-back.png','assets/lockedin-front.png','assets/lockedin-mood-front.png','assets/lockedin-back.png'];var di=0;setInterval(function(){di=(di+1)%imgs.length;dropRotator.classList.add('out');setTimeout(function(){dropRotator.src=imgs[di];dropRotator.classList.remove('out')},280)},1800)}
 
   var cart=[],cartLink=document.getElementById('cartLink'),cartCount=document.getElementById('cartCount'),cartDrawer=document.getElementById('cartDrawer'),cartClose=document.getElementById('cartClose'),cartItems=document.getElementById('cartItems'),cartTotal=document.getElementById('cartTotal');
   function money(n){return '$'+n.toFixed(2)}
